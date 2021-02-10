@@ -1,0 +1,355 @@
+.container {
+  width: 100%;
+  height: 100%;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  padding-bottom: 50px;
+  background-color: #f0f3f5;
+  position: relative;
+  .main {
+    width: 1090px;
+    height: 600px;
+    background: #ffffff;
+    box-shadow: 0px 17px 49px 0px rgba(51, 51, 51, 0.12);
+    overflow: hidden;
+    border-radius: 6px;
+    .left,
+    .right {
+      display: inline-block;
+      width: 50%;
+      height: 100%;
+      float: left;
+    }
+  }
+}
+
+.content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%); /* IE 9 */
+  -moz-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%); /* Safari and Chrome */
+  z-index: 2;
+}
+
+.left {
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  .logo {
+    width: 221px;
+    height: 36px;
+    margin-top: 44px;
+    margin-left: 53px;
+  }
+  .img {
+    width: 481px;
+    height: 432px;
+    margin-top: 41px;
+    margin-left: 43px;
+  }
+}
+.right {
+  // padding: 120px;
+  .icon {
+    padding-right: 9px;
+    padding-top: 9px;
+    display: flex;
+    justify-content: flex-end;
+    .iconLeft {
+      cursor: pointer;
+      margin: 10px 13px 27px 0;
+      img {
+        width: 119px;
+        height: 15px;
+      }
+    }
+    .iconRight {
+      cursor: pointer;
+      img {
+        width: 55px;
+        height: 52px;
+      }
+    }
+  }
+
+  .logoTitle {
+    width: 100%;
+    height: 24px;
+    margin: 41px 253px 49px 85px;
+    font-size: 24px;
+    font-family: Microsoft YaHei;
+    font-weight: 400;
+    color: #4283f4;
+    line-height: 27px;
+  }
+  .qrcodeTitle {
+    width: 201px;
+    height: 24px;
+    margin: 41px 253px 49px 85px;
+    font-size: 24px;
+    font-family: Microsoft YaHei;
+    font-weight: 400;
+    color: #4283f4;
+    line-height: 27px;
+  }
+}
+
+.type {
+  width: 144px;
+  height: 54px;
+  vertical-align: top;
+  margin: 0 auto;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-position: center center;
+}
+
+.formbox {
+  width: 362px;
+  margin-left: 85px;
+  margin-right: 91px;
+  :global {
+    .ant-input {
+      width: 100%;
+      height: 48px;
+      background: #ffffff;
+      border: 1px solid #f0f2f5;
+      border-radius: 6px;
+      padding-left: 22px;
+    }
+
+    .ant-form-item {
+      margin-bottom: 30px;
+      &:nth-last-child(2) {
+        margin-bottom: 0px;
+      }
+    }
+
+    .ant-btn-primary {
+      border-color: #fff;
+      box-shadow: none;
+    }
+
+    .ant-form-item-children {
+      input::-webkit-input-placeholder {
+        font-size: 16px;
+        font-family: Microsoft YaHei;
+        font-weight: 400;
+        color: #999;
+        line-height: 27px;
+      }
+    }
+  }
+  .btn {
+    width: 362px;
+    height: 48px;
+    background: linear-gradient(to right, #4591ef, #3d6cfc);
+    font-size: 16px;
+    font-family: Microsoft YaHei;
+    font-weight: 400;
+    color: #ffffff;
+    line-height: 27px;
+  }
+  .forget {
+    float: right;
+    display: inline-block;
+    height: 28px;
+    font-size: 14px;
+    font-family: Microsoft YaHei;
+    font-weight: 400;
+    color: #1890ff;
+    line-height: 28px;
+    margin-right: -7px;
+    margin-top: 5px;
+  }
+
+  .verifyBox {
+    position: relative;
+    width: 362px;
+    height: 48px;
+    background-color: #f0f2f5;
+    border-radius: 6px;
+  }
+
+  .verifyBtn {
+    position: absolute;
+    top: 0;
+    width: 64px;
+    height: 48px;
+    text-align: center;
+    line-height: 48px;
+    border-radius: 6px;
+    z-index: 3;
+    // background: linear-gradient(to right, #458ef0, #3d6dfb);
+    // border: 1px solid #ccc;
+    color: #fff;
+    cursor: move;
+    img {
+      height: 48px;
+      vertical-align: top;
+      // 设置图片不可移动属性,解决按钮移动复制到输入框以及向左向上向下滑动的问题
+      -webkit-user-drag: none;
+    }
+  }
+  .verifyText {
+    position: absolute;
+    width: 100%;
+    margin: 0;
+    text-align: center;
+    line-height: 48px;
+    display: block;
+    z-index: 2;
+    // color: #999;
+    font-size: 16px;
+    font-family: Microsoft YaHei;
+    font-weight: 400;
+    color: transparent;
+    background: -webkit-gradient(
+      linear,
+      left top,
+      right top,
+      color-stop(0, #999),
+      color-stop(0.4, #999),
+      color-stop(0.5, #fff),
+      color-stop(0.6, #999),
+      color-stop(1, #999)
+    );
+    background-clip: text;
+    -webkit-background-clip: text;
+    background-size: 150%;
+    animation: move 3s linear infinite;
+    @keyframes move {
+      from {
+        background-position: 150%;
+      }
+      to {
+        background-position: -150%;
+      }
+    }
+  }
+
+  .verifyBg {
+    position: absolute;
+    height: 100%;
+    width: 0;
+    background-color: #d4e1ff;
+    z-index: 1;
+  }
+}
+
+.qrcodeContent {
+  .qrcodeBox {
+    margin-left: 210px;
+    .qrcode {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      margin-top: 15px;
+      padding-left: 32px;
+      cursor: pointer;
+      img {
+        vertical-align: top;
+        transition: all 0.3s ease-in;
+        transform-origin: center center;
+      }
+    }
+  }
+  .text {
+    font-size: 14px;
+    font-family: Microsoft YaHei;
+    font-weight: 400;
+    color: #666666;
+    margin-top: 43px;
+    margin-left: 91px;
+    margin-right: 60px;
+  }
+}
+
+.main :global .ant-form-explain {
+  clear: both;
+}
+
+.main :global .ant-tabs-tab-active {
+  border-bottom: 3px solid #1890ff;
+}
+
+.footer {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 20px;
+  z-index: 1;
+  color: #fff;
+  text-align: center;
+}
+
+.code {
+  text-align: right;
+  cursor: pointer;
+  height: 48px;
+  padding: 2px 0;
+}
+
+.code img {
+  width: 90px;
+  height: 35px;
+  vertical-align: middle;
+}
+
+.mottoLeft {
+  position: fixed;
+  z-index: 9999;
+  top: 50%;
+  left: 10%;
+  transform: translate(0, -60%);
+  width: 29px;
+  font-size: 30px;
+  // font-family: STKaiti;
+  font-family: KaiTi;
+  font-weight: 400;
+  color: #ffffff;
+  line-height: 36px;
+  opacity: 0.8;
+}
+
+.mottoRight {
+  position: fixed;
+  z-index: 9999;
+  top: 50%;
+  right: 10%;
+  transform: translate(0, -60%);
+  width: 29px;
+  font-size: 30px;
+  // font-family: STKaiti;
+  font-family: KaiTi;
+  font-weight: 400;
+  color: #ffffff;
+  line-height: 36px;
+  opacity: 0.8;
+}
+
+@media (max-width: 1400px) {
+  .main {
+    width: 800px;
+    height: 360px;
+  }
+  .right {
+    padding: 30px 48px;
+  }
+  .logo {
+    width: 617px;
+    height: 52px;
+  }
+  .type {
+    width: 115px;
+    height: 43px;
+  }
+  .formbox {
+    margin-top: 20px;
+  }
+}

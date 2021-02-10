@@ -1,14 +1,31 @@
 import React from 'react';
-import './App.css';
-import { Button } from 'antd';
-import styles from './demo.module.less'
+import {connect} from 'react-redux'
+import {HashRouter, Switch, Route} from 'react-router-dom'
+import Login from './pages/login'
 
-function App() {
-  return (
-    <div className={styles.span}>
-      <Button type="primary">点击</Button>
-    </div>
-  );
+class App extends React.Component{
+    render() {
+        return (
+           <HashRouter>
+               <Switch>
+                   <Route path={"/login"} component={Login}/>
+                   <Route path={"/"} component={Login}/>
+               </Switch>
+           </HashRouter>
+        )
+    }
 }
 
-export default App;
+const mapStateToProps = (state)=>{
+   return {
+
+   }
+};
+
+const mapDispatchToProps = (dispatch)=>{
+    return {
+
+    }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
