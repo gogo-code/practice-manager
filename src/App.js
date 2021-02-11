@@ -1,31 +1,34 @@
-import React from 'react';
-import {connect} from 'react-redux'
-import {HashRouter, Switch, Route} from 'react-router-dom'
-import Login from './pages/login'
+import React, { lazy, Suspense } from "react";
+import { connect } from "react-redux";
+import { HashRouter, Switch, Route } from "react-router-dom";
 
-class App extends React.Component{
-    render() {
-        return (
-           <HashRouter>
-               <Switch>
-                   <Route path={"/login"} component={Login}/>
-                   <Route path={"/"} component={Login}/>
-               </Switch>
-           </HashRouter>
-        )
-    }
+const Login = lazy(() => import("./pages/login"));
+const Layouts = lazy(() => import("./pages/layouts"));
+
+class App extends React.Component {
+  render() {
+    return (
+      <HashRouter>
+        <Suspense fallback={<div>Loading...</div>}>
+          <Switch>
+            <Route path={"/login"} component={Login} />
+            <Route path={"/admin"} component={Layouts} />
+            <Route path={"/student"} component={Layouts} />
+            <Route path={"/teacher"} component={Layouts} />
+            <Route path={"/"} component={Login} />
+          </Switch>
+        </Suspense>
+      </HashRouter>
+    );
+  }
 }
 
-const mapStateToProps = (state)=>{
-   return {
-
-   }
+const mapStateToProps = (state) => {
+  return {};
 };
 
-const mapDispatchToProps = (dispatch)=>{
-    return {
-
-    }
+const mapDispatchToProps = (dispatch) => {
+  return {};
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

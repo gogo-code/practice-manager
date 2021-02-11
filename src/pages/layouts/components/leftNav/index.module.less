@@ -1,0 +1,23 @@
+.leftNav {
+  background-color: #fff;
+  box-shadow: 2px 3px 19px 0px rgba(24, 144, 255, 0.3);
+  .logo {
+    height: 30px;
+    margin: 10px;
+    img {
+      max-width: 100%;
+      max-height: 100%;
+      display: block;
+      margin: auto;
+    }
+  }
+  :global {
+    .ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected {
+      background: linear-gradient(270deg, #35c3ff 0%, #1890ff 100%);
+      color: white;
+    }
+    .ant-menu-inline .ant-menu-item::after {
+      border-right: none;
+    }
+  }
+}
