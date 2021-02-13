@@ -9,7 +9,12 @@ import {
   Tabs,
   Row,
   Col,
+  message,
 } from "antd";
+import md5 from "blueimp-md5";
+
+import { checkLogin, saveUser } from "./../../api/userApi";
+import config from "./../../config/config";
 
 import styles from "./index.module.less";
 import logo from "./images/logo.png";
@@ -50,7 +55,34 @@ class Login extends React.Component {
   componentDidMount() {}
 
   // 登录提交
-  handleAccountSubmit = (e) => {};
+  handleAccountSubmit = (e) => {
+    e.preventDefault();
+    this.props.form.validateFields((err, values) => {
+      if (!err) {
+        console.log("表单提交的数据: ", values);
+        // 对密码进行MD5加密
+        const hash_pwd = md5(values.password, config.KEY);
+        // 处理登录业务
+        checkLogin(values.account, hash_pwd)
+          .then((result) => {
+            console.log(result);
+            if (result && result.status === 1) {
+              message.success(result.msg);
+              // 保存用户信息到本地
+              saveUser(result.data);
+              // 跳转到主面板
+              this.props.history.replace("/admin");
+            } else if (result && result.status === 0) {
+              message.warning(result.msg);
+            } else {
+              message.error("网络出现一点小问题!");
+            }
+          }).catch((error) => {
+            message.error("服务器端内部错误!");
+          });
+      }
+    });
+  };
 
   // 刷新二维码
   handleReset = (params) => {
@@ -130,6 +162,7 @@ class Login extends React.Component {
     if (this.state.move) {
       if (e.clientX - this.state.translateX >= maxWidth) {
         this.slider.style.left = `${maxWidth}px`;
+        this.slider.style.borderRadius = `6px`;
         this.setState({
           verifyText: "验证成功",
           sliderImg: sliderEnd,
@@ -193,7 +226,7 @@ class Login extends React.Component {
                     onSubmit={this.handleAccountSubmit}
                   >
                     <FormItem>
-                      {getFieldDecorator("userName", {
+                      {getFieldDecorator("account", {
                         rules: [
                           {
                             required: true,
@@ -205,7 +238,7 @@ class Login extends React.Component {
                       )}
                     </FormItem>
                     <FormItem>
-                      {getFieldDecorator("token", {
+                      {getFieldDecorator("password", {
                         rules: [
                           {
                             required: true,
@@ -221,7 +254,7 @@ class Login extends React.Component {
                       )}
                     </FormItem>
                     <FormItem>
-                      {getFieldDecorator("verifyBox", {
+                      {getFieldDecorator("verifyText", {
                         rules: [],
                       })(
                         <div
@@ -238,7 +271,11 @@ class Login extends React.Component {
                             }}
                             onMouseDown={this.onMouseDown}
                           >
-                            <img src={`${sliderImg}`} alt="" />
+                            <img
+                              src={`${sliderImg}`}
+                              alt=""
+                              draggable="false"
+                            />
                           </div>
                           <p
                             className={styles.verifyText}
@@ -317,7 +354,7 @@ class Login extends React.Component {
         <div className={styles.mottoLeft}>厚德博学</div>
         <div className={styles.mottoRight}>崇实去浮</div>
         <div className={styles.footer}>
-          Copyright 2020 ✕✕大学 版权所有 校址： ✕✕省 ✕✕市 ✕✕路
+          Copyright 2021 ✕✕大学 版权所有 校址： ✕✕省 ✕✕市 ✕✕路
         </div>
       </div>
     );

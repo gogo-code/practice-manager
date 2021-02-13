@@ -1,5 +1,5 @@
 import React from "react";
-import { withRouter, Link } from "react-router-dom";
+import { withRouter, Link} from "react-router-dom";
 import { Layout, Menu, Icon } from "antd";
 import logo from "./images/logo.png";
 import sLogo from "./images/logo-s.png";
@@ -74,7 +74,7 @@ class LeftNav extends React.Component {
             key="sub1"
             title={
               <span>
-                <Icon type="user" />
+                <Icon type="user" style={{fontSize:this.props.collapsed ?'20px':'14px'}}/>
                 {this.props.collapsed ? "" : "选项"}
               </span>
             }
