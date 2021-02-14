@@ -1,4 +1,6 @@
 import axios from 'axios'
+import {removeUser} from "./userApi";
+import PubSub from 'pubsub-js'
 
 // 请求超时时间
 axios.defaults.timeout = 10000;
@@ -33,6 +35,8 @@ export  default function ajax(url = '', params = {}, type = 'GET') {
     return new Promise((resolve, reject)=>{
          // 1.1 判断请求的类型
         if(type.toUpperCase() === 'GET'){ // get请求
+            // 添加随机时间戳, 去除缓存
+            params['_t'] = randomCode(20);
             promise = axios({
                 url,
                 params
@@ -47,9 +51,30 @@ export  default function ajax(url = '', params = {}, type = 'GET') {
 
         //  1.2 处理结果并返回
         promise.then((response)=>{
-            resolve(response);
+            // token是否失效
+            if(response.status === 2){
+                // 清空本地的管理员信息
+                removeUser();
+                // 发布token失效信息
+                PubSub.publish('tokenOut', {});
+            }else {
+                resolve(response);
+            }
         }).catch((error)=>{
             reject(error);
         })
     });
+}
+
+/*
+  生成指定长度的随机数
+*/
+function randomCode(length) {
+    const chars = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+    let result = '';
+    for (let i=0; i<length; i++){
+        let index = Math.ceil(Math.random()*9);
+        result += chars[index];
+    }
+    return result;
 }

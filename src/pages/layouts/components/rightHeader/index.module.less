@@ -1,11 +1,27 @@
 .header {
-    padding: 0;
-    height: 40px;
-    background: #fff;
-    line-height: 14px;
+  display: flex;
+  justify-content: space-between;
+  height: 40px;
+  background: #fff;
+  line-height: 14px;
+  :global {
+    .ant-dropdown-trigger {
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      margin-right: 16px;
+      padding: 0 12px;
+    }
+    .ant-dropdown-trigger:hover {
+        background-color: rgba(0,0,0,.025);
+    }
+  }
+  .name {
+    margin-left: 8px;
+  }
 }
 .trigger {
-    padding-left: 16px;
-    padding-top: 12px;
-    font-size: 16px;
+  padding-left: 16px;
+  padding-top: 12px;
+  font-size: 16px;
 }

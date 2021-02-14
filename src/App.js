@@ -15,7 +15,7 @@ class App extends React.Component {
             <Route path={"/admin"} component={Layouts} />
             <Route path={"/student"} component={Layouts} />
             <Route path={"/teacher"} component={Layouts} />
-            <Route path={"/"} component={Login} />
+            <Route path={"/"} component={Layouts} />
           </Switch>
         </Suspense>
       </HashRouter>
