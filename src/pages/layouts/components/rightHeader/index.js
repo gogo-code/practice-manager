@@ -3,7 +3,8 @@ import { withRouter } from "react-router-dom";
 import { Layout, Icon, Avatar, Menu, Dropdown, message } from "antd";
 import styles from "./index.module.less";
 import img from "../leftNav/images/boy.png";
-import { getUser } from "../../../../api/userApi";
+import { getUser } from "@/api/userApi";
+import EditPassWord from './editPassword'
 
 import ajax from "./../../../../api/index";
 import { checkLogOut, removeUser } from "./../../../../api/userApi";
@@ -11,23 +12,16 @@ import { checkLogOut, removeUser } from "./../../../../api/userApi";
 const { Header } = Layout;
 
 class RightHeader extends React.Component {
+  state = {
+    editPwdPanelShow: false, // 修改密码面板显示与否
+  };
+
   toggle = () => {
     this.props.toggle();
   };
+
   onMenuClick = (event) => {
     const { key } = event;
-    console.log(event);
-    // if (key === 'logout') {
-    //   const { dispatch } = this.props;
-
-    //   if (dispatch) {
-    //     dispatch({
-    //       type: 'login/logout',
-    //     });
-    //   }
-
-    //   return;
-    // }
     if (key === "logout") {
       checkLogOut().then((result) => {
         if (result && result.status === 1) {
@@ -42,7 +36,16 @@ class RightHeader extends React.Component {
         // 切换到登录界面
         this.props.history.replace("/login");
       });
+    } else {
+      this._hideEditPwdPanel();
     }
+  };
+
+  // 修改密码面板的显示或隐藏
+  _hideEditPwdPanel = () => {
+    this.setState({
+      editPwdPanelShow: !this.state.editPwdPanelShow,
+    });
   };
 
   render() {
@@ -53,11 +56,6 @@ class RightHeader extends React.Component {
         selectedKeys={[]}
         onClick={this.onMenuClick}
       >
-        <Menu.Item key="center">
-          <Icon type="user" />
-          个人中心
-        </Menu.Item>
-
         <Menu.Item key="settings">
           <Icon type="setting" />
           修改密码
@@ -92,6 +90,10 @@ class RightHeader extends React.Component {
             <span className={styles.name}>{zgl_user_name}</span>
           </span>
         </Dropdown>
+        <EditPassWord
+          visible={this.state.editPwdPanelShow}
+          hideFunc={this._hideEditPwdPanel}
+        />
       </Header>
     );
   }

@@ -62,8 +62,10 @@ class Login extends React.Component {
         console.log("表单提交的数据: ", values);
         // 对密码进行MD5加密
         const hash_pwd = md5(values.password, config.KEY);
+        // 发送验证码
+        const verifyCode = this.state.verifyText === "验证成功" ? "1" : "0";
         // 处理登录业务
-        checkLogin(values.account, hash_pwd)
+        checkLogin(values.account, hash_pwd, verifyCode)
           .then((result) => {
             console.log(result);
             if (result && result.status === 1) {
@@ -71,13 +73,14 @@ class Login extends React.Component {
               // 保存用户信息到本地
               saveUser(result.data);
               // 跳转到主面板
-              this.props.history.replace("/admin");
+              this.props.history.replace("/");
             } else if (result && result.status === 0) {
-              message.warning(result.msg);
+              message.error(result.msg);
             } else {
               message.error("网络出现一点小问题!");
             }
-          }).catch((error) => {
+          })
+          .catch((error) => {
             message.error("服务器端内部错误!");
           });
       }

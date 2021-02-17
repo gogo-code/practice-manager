@@ -1,57 +1,97 @@
 import React from "react";
-import { withRouter, Link} from "react-router-dom";
+import { withRouter, Link } from "react-router-dom";
 import { Layout, Menu, Icon } from "antd";
 import logo from "./images/logo.png";
 import sLogo from "./images/logo-s.png";
-
+import { getUser } from "@/api/userApi";
 import styles from "./index.module.less";
 
-// // 引入目录json文件
-// import menus from './config/menuConfig'
+// 引入目录json文件
+import menus from "./menuConfig";
 
 const { Sider } = Layout;
 const { Item, SubMenu } = Menu;
 
 class LeftNav extends React.Component {
-  // state = {
-  //   menuList: menus,
-  // };
+  state = {
+    menuList: menus,
+  };
 
-  // /*创建左侧菜单*/
-  // _renderMenu = (menuList)=>{
-  //     return menuList.map(item => {
-  //         // 取出一级菜单
-  //         if(!item.children){
-  //             return (
-  //                 <Item key={item._key}>
-  //                     <Link to={item._key}>
-  //                         <span className={item.icon} />
-  //                         <span>{item.title}</span>
-  //                     </Link>
-  //                 </Item>
-  //             )
-  //         }else {
-  //             return (
-  //                 <SubMenu
-  //                     key={item._key}
-  //                     title={
-  //                         <span>
-  //                              <span className={item.icon} />
-  //                               <span>{item.title}</span>
-  //                         </span>
-  //                     }
-  //                 >
-  //                     {this._renderMenu(item.children)}
-  //                 </SubMenu>
-  //             )
-  //         }
-  //     })
-  // };
+  /*创建左侧菜单*/
+  _renderMenu = (menuList) => {
+    return menuList.map((item) => {
+      // 取出一级菜单
+      if (!item.children) {
+        return (
+          <Item key={item.key}>
+            <Link to={item.key}>
+              {item.icon ? (
+                <Icon
+                  type={item.icon}
+                  style={{ fontSize: this.props.collapsed ? "20px" : "14px" }}
+                />
+              ) : (
+                ""
+              )}
+              <span>{item.title}</span>
+            </Link>
+          </Item>
+        );
+      } else {
+        return (
+          <SubMenu
+            key={item.key}
+            title={
+              <span>
+                {item.icon ? (
+                  <Icon
+                    type={item.icon}
+                    style={{ fontSize: this.props.collapsed ? "20px" : "14px" }}
+                  />
+                ) : (
+                  ""
+                )}
+                <span>{item.title}</span>
+              </span>
+            }
+          >
+            {this._renderMenu(item.children)}
+          </SubMenu>
+        );
+      }
+    });
+  };
+
+  // 根据当前的菜单列表, 依据当前的路由路径, 获取应该被展开的菜单项
+  _getOpenKeys = (menuList, path) => {
+    
+    for (let i = 0; i < menuList.length; i++) {
+      // 1. 获取配置对象
+      let item = menuList[i];
+      // 2. 判断
+      if (
+        item.children &&
+        item.children.find((c_item) => {
+          return c_item.key === path;
+        })
+      ) {
+        return item.key;
+      }
+    }
+    return "";
+  };
 
   render() {
     // 获取当前的路由
     let path = this.props.location.pathname;
-    console.log(path);
+    let pPath = path.substr(0, path.indexOf("/", 2))
+      ? path.substr(0, path.indexOf("/", 2))
+      : path;
+   
+    // console.log(path);
+    const { zgl_role_id } = getUser();
+    let _menuList = this.state.menuList.find((val) => val.id == zgl_role_id).data;
+    let openKeys = this._getOpenKeys(_menuList, path);
     return (
       <Sider
         trigger={null}
@@ -68,22 +108,11 @@ class LeftNav extends React.Component {
           mode="inline"
           defaultSelectedKeys={["1"]}
           // style={{ height: "100%", borderRight: 0 }}
+          defaultSelectedKeys={[path]}
+          selectedKeys={[path, pPath]}
+          defaultOpenKeys={[openKeys]}
         >
-          {/* {this._renderMenu(this.state.menuList)} */}
-          <SubMenu
-            key="sub1"
-            title={
-              <span>
-                <Icon type="user" style={{fontSize:this.props.collapsed ?'20px':'14px'}}/>
-                {this.props.collapsed ? "" : "选项"}
-              </span>
-            }
-          >
-            <Item key="1">option1</Item>
-            <Item key="2">option2</Item>
-            <Item key="3">option3</Item>
-            <Item key="4">option4</Item>
-          </SubMenu>
+          {this._renderMenu(_menuList)}
         </Menu>
       </Sider>
     );
