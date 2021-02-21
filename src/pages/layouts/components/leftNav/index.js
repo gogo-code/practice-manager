@@ -89,8 +89,8 @@ class LeftNav extends React.Component {
       : path;
    
     // console.log(path);
-    const { zgl_role_id } = getUser();
-    let _menuList = this.state.menuList.find((val) => val.id == zgl_role_id).data;
+    const { sxgl_role_id } = getUser();
+    let _menuList = this.state.menuList.find((val) => val.id == sxgl_role_id).data;
     let openKeys = this._getOpenKeys(_menuList, path);
     return (
       <Sider

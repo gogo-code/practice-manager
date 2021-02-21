@@ -10,6 +10,7 @@ import "./index.less";
 import NotFound from "./../notFound/not-found";
 import Home from "./../home";
 import PersonSetting from "./../personSetting";
+import PracticeBase from './../practiceBase'
 
 // 引入路由动画组件
 import { TransitionGroup, CSSTransition } from "react-transition-group";
@@ -57,36 +58,42 @@ export default class Layouts extends Component {
     });
   };
 
-  /*创建面包屑涉及深度遍历*/
+  /*创建面包屑涉及深度遍历(没时间写)*/
   _renderMenu = (menuList, path) => {
     let _path = path.split("/").splice(0, 2).join("/");
     let arr = [];
     let data = menuList.find((val) => val.key.indexOf(_path) !== -1);
-    arr.push(
-      <Breadcrumb.Item key={data.key}>
-        <Link to={data.key}>{data.title}</Link>
-      </Breadcrumb.Item>
-    );
-    if (data.children) {
-      let childData = data.children.find((val) => val.key.indexOf(path) !== -1);
+    if (data) {
       arr.push(
         <Breadcrumb.Item key={data.key}>
-          <Link to={childData.key}>{childData.title}</Link>
+          <Link to={data.key}>{data.title}</Link>
         </Breadcrumb.Item>
       );
+      if (data.children) {
+        let childData =
+          data.children.find((val) => val.key.indexOf(path) !== -1) || {};
+        arr.push(
+          <Breadcrumb.Item key={data.key}>
+            <Link to={childData.key}>{childData.title}</Link>
+          </Breadcrumb.Item>
+        );
+      }
+    } else {
+      arr.push(<Breadcrumb.Item key="NotFound">找不到</Breadcrumb.Item>);
     }
+
     return arr;
   };
 
   render() {
-    const { zgl_role_id } = getUser();
-    let path = this.props.location.pathname;
-    let _menuList = this.state.menuList.find((val) => val.id == zgl_role_id)
-      .data;
     // 判断是否是登录的
     if (!isLogin()) {
       return <Redirect to={"/login"} />;
     }
+    const { sxgl_role_id } = getUser();
+    let path = this.props.location.pathname;
+    let _menuList =
+      this.state.menuList.find((val) => val.id == sxgl_role_id).data || [];
     return (
       <Layout className="pane">
         {/*左边*/}
@@ -119,7 +126,8 @@ export default class Layouts extends Component {
                 <Switch>
                   <Redirect from={"/"} exact to={"/home"} />
                   <Route path={"/home"} component={Home} />
-                  <Route path={"/personSetting"} component={PersonSetting} />
+                  <Route path={"/practiceBase"} component={PracticeBase} />
+                  <Route path={"/personSetting"} component={PersonSetting} />                  
                   <Route component={NotFound} />
                 </Switch>
               </CSSTransition>

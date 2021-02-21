@@ -1,0 +1,52 @@
+.box {
+  background-color: #fafafa;
+  padding: 4px;
+  color: #000;
+  font-size: 13px;
+  :global {
+    .form-item-label label {
+      font-size: 13px;
+	}
+	.ant-form-item{
+		margin-bottom: 2px !important;
+	}
+  }
+}
+.box_top {
+  overflow: hidden;
+  position: relative;
+}
+.box_l {
+  width: 99%;
+  float: left;
+}
+.inner {
+  margin-right: 200px;
+}
+.box_r {
+  position: absolute;
+  float: right;
+  right: 18px;
+  padding-left: 10px;
+  margin-top: 6px;
+  width: fit-content;
+  display: flex;
+  div:first-child{
+    display: inline-block;
+    button{
+      margin-right: 5px;
+    }
+  }
+}
+.btn {
+  display: inline-block;
+  margin-left: 10px;
+  color: #1890ff;
+  height: 30px;
+  line-height: 30px;
+  cursor: pointer;
+}
+.btn span {
+  display: inline-block;
+  margin-left: 5px;
+}

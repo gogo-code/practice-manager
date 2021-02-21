@@ -49,7 +49,7 @@ class RightHeader extends React.Component {
   };
 
   render() {
-    const { zgl_user_img, zgl_user_name } = getUser();
+    const { sxgl_user_img, sxgl_user_name } = getUser();
     const menuHeaderDropdown = (
       <Menu
         className={styles.menu}
@@ -84,10 +84,10 @@ class RightHeader extends React.Component {
             <Avatar
               size="small"
               className={styles.avatar}
-              src={zgl_user_img ? zgl_user_img : img}
+              src={sxgl_user_img ? sxgl_user_img : img}
               alt="avatar"
             />
-            <span className={styles.name}>{zgl_user_name}</span>
+            <span className={styles.name}>{sxgl_user_name}</span>
           </span>
         </Dropdown>
         <EditPassWord

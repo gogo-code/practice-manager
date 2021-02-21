@@ -4,28 +4,65 @@
     "data": [
       {
         "id": 1,
-        "title": "首页",
+        "title": "主页",
         "key": "/home",
         "icon": "home"
       },
       {
         "id": 2,
-        "title": "个人信息管理",
-        "key": "/personSetting",
+        "title": "实习基地设置",
+        "key": "/practiceBase",
         "icon": "setting",
         "children": [
           {
-            "id": 4,
-            "title": "子夜",
-            "key": "/personSetting/2"
+            "id": 3,
+            "title": "实习基地维护",
+            "key": "/practiceBase/setting"
      
           },
           {
+            "id": 4,
+            "title": "实习基地岗位",
+            "key": "/practiceBase/job"   
+          },
+          {
             "id": 5,
-            "title": "子叶",
-            "key": "/personSetting/1"   
+            "title": "基地指导老师",
+            "key": "/practiceBase/tutor"
+     
           }
         ]
+      },
+      {
+        "id": 6,
+        "title": "实习设置",
+        "key": "/personSetti",
+        "icon": "setting",
+        "children": [
+          {
+            "id": 7,
+            "title": "实习基地维护",
+            "key": "/personSetting/4"
+     
+          },
+          {
+            "id": 8,
+            "title": "实习基地岗位",
+            "key": "/personSetting/5"   
+          },
+          {
+            "id": 9,
+            "title": "基地指导老师",
+            "key": "/personSetting/6"
+     
+          }
+        ]
+      },
+      {
+        "id": 10,
+        "title": "个人信息管理",
+        "key": "/personSetting",
+        "icon": "setting"
       }
     ]
   },
@@ -34,7 +71,7 @@
     "data": [
       {
         "id": 1,
-        "title": "首页",
+        "title": "主页",
         "key": "/home",
         "icon": "home"
       },
@@ -51,7 +88,7 @@
     "data": [
       {
         "id": 1,
-        "title": "首页",
+        "title": "主页",
         "key": "/home",
         "icon": "home"
       },
@@ -68,7 +105,7 @@
     "data": [
       {
         "id": 1,
-        "title": "首页",
+        "title": "主页",
         "key": "/home",
         "icon": "home"
       },
