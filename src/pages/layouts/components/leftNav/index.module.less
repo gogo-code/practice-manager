@@ -1,6 +1,8 @@
 .leftNav {
   background-color: #fff;
   box-shadow: 2px 3px 19px 0px rgba(24, 144, 255, 0.3);
+  background-image: url(./images/leftbar_bg.png);
+  background-repeat: no-repeat;
   .logo {
     height: 30px;
     margin: 10px;
@@ -14,6 +16,7 @@
   :global {
     .ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected {
       background: linear-gradient(270deg, #35c3ff 0%, #1890ff 100%);
+
       color: white;
       i {
         color: white;
@@ -21,6 +24,9 @@
       span {
         color: white;
       }
+    }
+    .ant-menu {
+      background: transparent;
     }
     .ant-menu-inline .ant-menu-item::after {
       border-right: none;

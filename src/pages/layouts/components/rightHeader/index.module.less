@@ -2,9 +2,11 @@
   display: flex;
   justify-content: space-between;
   height: 40px;
-  background: #fff;
+  background-image: url(./images/header_bg.png);
+  background-color: #fff;
   line-height: 14px;
   box-shadow: 2px 3px 19px 0px rgba(2, 0, 25, 0.08);
+
   :global {
     .ant-dropdown-trigger {
       cursor: pointer;
@@ -25,4 +27,43 @@
   padding-left: 16px;
   padding-top: 12px;
   font-size: 16px;
+}
+
+:global {
+  .ant-btn {
+    border-radius: 6px;
+    width: 50px;
+    height: 30px;
+    text-align: center;
+    padding: 0px 10px;
+    font-size: 12px;
+  }
+  .ant-table-thead {
+    tr {
+      th {
+        font-weight: bold;
+        background: #1890ff !important;
+        color: #fff !important;
+        height: 30px;
+      }
+    }
+  }
+  .ant-table-tbody {
+    height: 30px;
+  }
+  .ant-table tr:nth-child(even) > td {
+    background: #f7fcff;
+  }
+  .ant-table-small > .ant-table-content > .ant-table-body {
+    margin: 0px !important;
+  }
+  .ant-modal-header {
+    background: #1890ff;
+    .ant-modal-title {
+      color: #fff;
+    }
+    i {
+      color: white;
+    }
+  }
 }

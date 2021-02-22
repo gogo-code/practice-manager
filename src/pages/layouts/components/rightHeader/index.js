@@ -71,7 +71,7 @@ class RightHeader extends React.Component {
     return (
       <Header
         className={styles.header}
-        style={{ padding: 0, height: 40, background: "#fff" }}
+        style={{ padding: 0, height: 40 }}
       >
         <Icon
           className={styles.trigger}
