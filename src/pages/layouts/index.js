@@ -58,7 +58,7 @@ export default class Layouts extends Component {
     });
   };
 
-  /*创建面包屑涉及深度遍历(没时间写)*/
+  /*创建面包屑涉及深度遍历(没时间写只是写了一层)*/
   _renderMenu = (menuList, path) => {
     let _path = path.split("/").splice(0, 2).join("/");
     let arr = [];

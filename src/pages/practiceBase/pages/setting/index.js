@@ -73,7 +73,7 @@ export default class index extends Component {
     return (
       <div>
           <Search openChange={() => this.openChange()} onSearch={this.onSearch} />
-        <div style={{ marginBottom: 16 }}>
+        <div style={{ marginBottom: 8 }}>
           <Button
             type="primary"
             onClick={this.start}
