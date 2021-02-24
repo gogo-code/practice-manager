@@ -4,31 +4,58 @@ import { Table, Button } from "antd";
 import Search from "./search";
 
 const columns = [
-  { title: "序号", dataIndex: "id", key: "id", width: 50, align: "center" },
+  { title: "序号", dataIndex: "sxgl_company_id", key: "sxgl_company_id", width: 50, align: "center" },
   {
     title: "单位名称",
     dataIndex: "sxgl_company_name",
     key: "sxgl_company_name",
+    width: 180,
+    align: "center",
   },
   {
     title: "单位地址",
-    dataIndex: "age",
+    dataIndex: "sxgl_company_address",
+    key: "sxgl_company_address",
+    width: 220,
+    align: "center",
   },
   {
     title: "联系人",
-    dataIndex: "address",
+    dataIndex: "sxgl_connect_person",
+    key: "sxgl_connect_person",
+    width: 80,
+    align: "center",
   },
   {
     title: "联系电话",
-    dataIndex: "address",
+    dataIndex: "sxgl_phone",
+    key: "sxgl_phone",
+    width: 120,
+    align: "center",
   },
   {
     title: "单位性质",
-    dataIndex: "address",
+    dataIndex: "sxgl_company_type",
+    key: "sxgl_company_type",
+    width: 120,
+    align: "center",
   },
   {
     title: "操作",
-    dataIndex: "address",
+    render: (text, record) => {
+      return (
+        <div>
+          <a
+            onClick={() => {
+              this.props.pageChange(record, "update");
+            }}
+          >
+            修改
+          </a>
+        </div>
+      );
+    },
+    align: "center",
   },
 ];
 
