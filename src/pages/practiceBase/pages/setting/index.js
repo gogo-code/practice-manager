@@ -4,10 +4,11 @@ import { Table, Button } from "antd";
 import Search from "./search";
 
 const columns = [
-  { title: "序号", dataIndex: "name" },
+  { title: "序号", dataIndex: "id", key: "id", width: 50, align: "center" },
   {
     title: "单位名称",
-    dataIndex: "name",
+    dataIndex: "sxgl_company_name",
+    key: "sxgl_company_name",
   },
   {
     title: "单位地址",
@@ -72,7 +73,7 @@ export default class index extends Component {
     const hasSelected = selectedRowKeys.length > 0;
     return (
       <div>
-          <Search openChange={() => this.openChange()} onSearch={this.onSearch} />
+        <Search openChange={() => this.openChange()} onSearch={this.onSearch} />
         <div style={{ marginBottom: 8 }}>
           <Button
             type="primary"
