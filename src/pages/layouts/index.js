@@ -10,7 +10,8 @@ import "./index.less";
 import NotFound from "./../notFound/not-found";
 import Home from "./../home";
 import PersonSetting from "./../personSetting";
-import PracticeBase from './../practiceBase'
+import PracticeBase from "./../admin/practiceBase";
+import UserSetting from "./../admin/userSetting";
 
 // 引入路由动画组件
 import { TransitionGroup, CSSTransition } from "react-transition-group";
@@ -127,7 +128,8 @@ export default class Layouts extends Component {
                   <Redirect from={"/"} exact to={"/home"} />
                   <Route path={"/home"} component={Home} />
                   <Route path={"/practiceBase"} component={PracticeBase} />
-                  <Route path={"/personSetting"} component={PersonSetting} />                  
+                  <Route path={"/personSetting"} component={PersonSetting} />
+                  <Route path={"/userSetting"} component={UserSetting} />
                   <Route component={NotFound} />
                 </Switch>
               </CSSTransition>

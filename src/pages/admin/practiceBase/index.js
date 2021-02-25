@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Switch, Route } from "react-router-dom";
 
-import NotFound from "./../notFound/not-found";
+import NotFound from "./../../notFound/not-found";
 import Job from './pages/job'
 import Setting from './pages/setting'
 import Tutor from './pages/tutor'
