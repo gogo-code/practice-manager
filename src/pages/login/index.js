@@ -182,6 +182,15 @@ class Login extends React.Component {
     });
   };
 
+  // 忘记密码提示信息
+  info = () => {
+    Modal.info({
+      title: "忘记密码请联系管理员重置密码 !",
+      onOk() {},
+      okText:'好的'
+    });
+  };
+
   render() {
     const {
       imageUrl,
@@ -312,7 +321,11 @@ class Login extends React.Component {
                     </FormItem>
                     <FormItem>
                       <div>
-                        <a href="javascript:;" className={styles.forget}>
+                        <a
+                          href="javascript:;"
+                          className={styles.forget}
+                          onClick={this.info}
+                        >
                           忘记密码？
                         </a>
                       </div>

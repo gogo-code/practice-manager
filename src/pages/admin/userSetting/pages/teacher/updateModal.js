@@ -5,8 +5,8 @@ import md5 from "blueimp-md5";
 import { withRouter } from "react-router-dom";
 import styles from "./index.module.less";
 
-import { changeUserPwd, getUser, removeUser } from "./../../../../api/userApi";
-import config from "./../../../../config/config";
+import { changeUserPwd, getUser, removeUser } from "@/api/userApi";
+import config from "@/config/config";
 
 class EditPassword extends React.Component {
   static propTypes = {
@@ -52,33 +52,19 @@ class EditPassword extends React.Component {
     this.props.hideFunc();
   };
 
-  checkPsd(rule, value, callback) {
-    let password2 = this.props.form.getFieldValue("confirm_password");
-    if (password2 && password2 !== value) {
-      callback(new Error("两次密码输入不一致"));
-    } else {
-      callback();
-    }
-  }
-
-  checkPsd2(rule, value, callback) {
-    let password = this.props.form.getFieldValue("new_password");
-    if (password && password !== value) {
-      callback(new Error("两次密码输入不一致"));
-    } else {
-      callback();
-    }
-  }
-
   render() {
     const FormItem = Form.Item;
     const { getFieldDecorator } = this.props.form;
 
-    const { visible } = this.props;
-
+    const { visible, record } = this.props;
+    console.log(record);
+    const formItemLayout = {
+        labelCol: { span: 6 },
+        wrapperCol: { span: 18 }
+    };
     return (
       <Modal
-        title="修改密码"
+        title="修改学生信息"
         visible={visible}
         onCancel={this.handleCancel}
         footer={[
@@ -91,7 +77,7 @@ class EditPassword extends React.Component {
         ]}
       >
         <Form className={styles.formbox}>
-          <FormItem>
+          <FormItem {...formItemLayout} label="年级：">
             {getFieldDecorator("old_password", {
               rules: [{ required: true, message: "请输入旧的密码!" }],
             })(
@@ -121,6 +107,26 @@ class EditPassword extends React.Component {
                 }
                 type="password"
                 placeholder="请输入新的密码"
+              />
+            )}
+          </FormItem>
+          <FormItem>
+            {getFieldDecorator("confirm_password", {
+              rules: [
+                { required: true, message: "请输入确认密码!" },
+                {
+                  validator: (rule, value, callback) => {
+                    this.checkPsd2(rule, value, callback);
+                  },
+                },
+              ],
+            })(
+              <Input.Password
+                prefix={
+                  <Icon type="lock" style={{ color: "rgba(0,0,0,.25)" }} />
+                }
+                type="password"
+                placeholder="请输入确认密码"
               />
             )}
           </FormItem>

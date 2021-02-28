@@ -1,10 +1,16 @@
 import React, { Component } from "react";
-import { Table, Button } from "antd";
+import { Table, Button, Upload } from "antd";
 
 import Search from "./search";
 
 const columns = [
-  { title: "序号", dataIndex: "sxgl_company_id", key: "sxgl_company_id", width: 50, align: "center" },
+  {
+    title: "序号",
+    dataIndex: "sxgl_student_id",
+    key: "sxgl_student_id",
+    width: 50,
+    align: "center",
+  },
   {
     title: "单位名称",
     dataIndex: "sxgl_company_name",
@@ -107,7 +113,7 @@ export default class index extends Component {
             onClick={this.start}
             style={{ marginRight: 8 }}
           >
-            添加
+            导入
           </Button>
           <Button type="danger" ghost onClick={this.start}>
             删除
