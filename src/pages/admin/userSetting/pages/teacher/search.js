@@ -46,18 +46,13 @@ class Search extends Component {
         <Form>
           <Row>
             <Col {...colSpan}>
-              <FormItem {...formItemLayout} label="学生姓名:">
-                {getFieldDecorator("sxgl_student_name")(<Input />)}
+              <FormItem {...formItemLayout} label="教师姓名:">
+                {getFieldDecorator("sxgl_name")(<Input />)}
               </FormItem>
             </Col>
             <Col {...colSpan}>
-              <FormItem {...formItemLayout} label="学生学院:">
-                {getFieldDecorator("sxgl_student_college")(<Input />)}
-              </FormItem>
-            </Col>
-            <Col {...colSpan}>
-              <FormItem {...formItemLayout} label="学生专业:">
-                {getFieldDecorator("sxgl_student_major")(<Input />)}
+              <FormItem {...formItemLayout} label="所属学院:">
+                {getFieldDecorator("sxgl_department")(<Input />)}
               </FormItem>
             </Col>
             <Col {...colSpan}>

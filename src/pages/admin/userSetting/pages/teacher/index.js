@@ -2,12 +2,12 @@ import React, { Component } from "react";
 import { Table, Button, Upload, message, Modal, Divider } from "antd";
 import * as XLSX from "xlsx";
 import {
-  studentQuery,
-  studentDelete,
-  studentAdd,
-  studentUpdate,
-  studentResetPwd,
-} from "@/api/adminApi/studentSetting";
+  teacherQuery,
+  teacherDelete,
+  teacherAdd,
+  teacherUpdate,
+  teacherResetPwd,
+} from "@/api/adminApi/teacherSetting";
 import { getUser } from "@/api/userApi";
 
 import Search from "./search";
@@ -32,7 +32,7 @@ export default class index extends Component {
     this.setState({
       loading: true,
     });
-    studentQuery(params)
+    teacherQuery(params)
       .then((result) => {
         if (result && result.status === 1) {
           this.setState({
@@ -85,15 +85,13 @@ export default class index extends Component {
         // console.log(data[`${this.state.sheet}`]);
         const newData = data[`${this.state.sheet}`].map((item) => {
           return {
-            sxgl_student_id: item["学生学号"],
-            sxgl_student_name: item["学生姓名"],
-            sxgl_student_college: item["所在学院"],
-            sxgl_student_major: item["学生专业"],
-            sxgl_student_class: item["学生班级"],
-            sxgl_student_phone: item["联系电话"],
+            sxgl_teacher_id: item["教师工号"],
+            sxgl_name: item["教师姓名"],
+            sxgl_department: item["所属学院"],
+            sxgl_phone: item["联系电话"],
           };
         });
-        studentAdd(getUser().token, newData)
+        teacherAdd(getUser().token, newData)
           .then((result) => {
             if (result && result.status === 1) {
               message.success("上传成功!");
@@ -118,17 +116,15 @@ export default class index extends Component {
     let data = this.state.data;
     console.log(Object.keys(data[0]));
     let head = [
-      "学生学号",
-      "学生姓名",
-      "所在学院",
-      "学生专业",
-      "学生班级",
+      "教师工号",
+      "教师姓名",
+      "所属学院",
       "联系电话",
     ];
     data = data.map((e) => Object.values(e));
     data.unshift(head);
 
-    let filename = "学生表.xlsx";
+    let filename = "教师表.xlsx";
     let ws_name = "SheetJS";
 
     let wb = XLSX.utils.book_new();
@@ -162,7 +158,7 @@ export default class index extends Component {
       cancelText: "取消",
       onOk() {
         let ids = _this.state.selectedRowKeys;
-        studentDelete(ids)
+        teacherDelete(ids)
           .then((result) => {
             if (result && result.status === 1) {
               message.success("删除成功!");
@@ -201,45 +197,31 @@ export default class index extends Component {
         },
       },
       {
-        title: "学生学号",
-        dataIndex: "sxgl_student_id",
-        key: "sxgl_student_id",
+        title: "教师工号",
+        dataIndex: "sxgl_teacher_id",
+        key: "sxgl_teacher_id",
         width: 120,
         align: "center",
       },
       {
-        title: "学生姓名",
-        dataIndex: "sxgl_student_name",
-        key: "sxgl_student_name",
+        title: "教师姓名",
+        dataIndex: "sxgl_name",
+        key: "sxgl_name",
         width: 100,
         align: "center",
       },
       {
-        title: "所在学院",
-        dataIndex: "sxgl_student_college",
-        key: "sxgl_student_college",
+        title: "所属学院",
+        dataIndex: "sxgl_department",
+        key: "sxgl_department",
         width: 200,
         align: "center",
       },
       {
-        title: "学生专业",
-        dataIndex: "sxgl_student_major",
-        key: "sxgl_student_major",
-        width: 180,
-        align: "center",
-      },
-      {
-        title: "学生班级",
-        dataIndex: "sxgl_student_class",
-        key: "sxgl_student_class",
-        width: 150,
-        align: "center",
-      },
-      {
         title: "联系电话",
-        dataIndex: "sxgl_student_phone",
-        key: "sxgl_student_phone",
-        width: 150,
+        dataIndex: "sxgl_phone",
+        key: "sxgl_phone",
+        width: 180,
         align: "center",
       },
       {
@@ -255,7 +237,7 @@ export default class index extends Component {
                     okText: "确认",
                     cancelText: "取消",
                     onOk: () => {
-                      studentResetPwd(getUser().token, record.sxgl_student_id)
+                      teacherResetPwd(getUser().token, record.sxgl_teacher_id)
                         .then((result) => {
                           if (result && result.status === 1) {
                             message.success("重置成功!");
@@ -321,7 +303,7 @@ export default class index extends Component {
           dataSource={this.state.data}
           loading={this.state.loading}
           bordered
-          rowKey={(record) => record.sxgl_student_id}
+          rowKey={(record) => record.sxgl_teacher_id}
           size="small"
           pagination={{
             pageSize: 8,
