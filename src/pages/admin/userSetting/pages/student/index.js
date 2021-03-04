@@ -188,6 +188,7 @@ export default class index extends Component {
       updateRow: record,
     });
   };
+  
   render() {
     const columns = [
       {

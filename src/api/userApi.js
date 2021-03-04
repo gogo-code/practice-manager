@@ -43,11 +43,6 @@ export const getUser = () => {
   return getObj(config.USER_KEY);
 };
 
-// /*
-//   7. 修改管理员信息
-// */
-// export const changeAdminMsg = (token, account_name, account_icon) =>
-//   ajax("/api/auth/admin/edit", { token, account_name, account_icon }, "post");
 
 /*
   7. 修改用户密码
