@@ -1,5 +1,15 @@
 import React from "react";
-import { Modal, Form, Input, Button, message, Icon, Col, Row } from "antd";
+import {
+  Modal,
+  Form,
+  Input,
+  Button,
+  message,
+  Icon,
+  Col,
+  Row,
+  Select,
+} from "antd";
 import PropTypes from "prop-types";
 import md5 from "blueimp-md5";
 import { withRouter } from "react-router-dom";
@@ -8,7 +18,7 @@ import styles from "./index.module.less";
 import { changeUserPwd, getUser, removeUser } from "@/api/userApi";
 import config from "@/config/config";
 
-class EditPassword extends React.Component {
+class UpdateModal extends React.Component {
   static propTypes = {
     visible: PropTypes.bool.isRequired,
     hideFunc: PropTypes.func.isRequired,
@@ -42,7 +52,7 @@ class EditPassword extends React.Component {
             }
           })
           .catch(() => {
-            message.error("修改密码失败!!");
+            message.error("修改失败!!");
           });
       }
     });
@@ -54,17 +64,19 @@ class EditPassword extends React.Component {
 
   render() {
     const FormItem = Form.Item;
+    const { Option } = Select;
     const { getFieldDecorator } = this.props.form;
 
     const { visible, record } = this.props;
+
     const formItemLayout = {
       labelCol: { span: 6 },
       wrapperCol: { span: 18 },
     };
     const formItemLayout2 = {
-        labelCol: { span: 3 },
-        wrapperCol: { span: 21 },
-      };
+      labelCol: { span: 3 },
+      wrapperCol: { span: 21 },
+    };
     return (
       <Modal
         width="700px"
@@ -97,30 +109,52 @@ class EditPassword extends React.Component {
               <FormItem {...formItemLayout} label="所属行业">
                 {getFieldDecorator("sxgl_company_industry", {
                   rules: [],
-                  initialValue:record.sxgl_company_industry
-                })(<Input />)}
+                  initialValue: record.sxgl_company_industry,
+                })(
+                  <Select>
+                    <Option value="IT行业">IT行业</Option>
+                    <Option value="建筑业">建筑业</Option>
+                    <Option value="制造业">制造业</Option>
+                    <Option value="批发和零售业">批发和零售业</Option>
+                    <Option value="采矿业">采矿业</Option>
+                    <Option value="金融、保险业">金融、保险业</Option>
+                    <Option value="教育">教育</Option>
+                    <Option value="其他">其他</Option>
+                  </Select>
+                )}
               </FormItem>
             </Col>
             <Col span={12}>
               <FormItem {...formItemLayout} label="单位类型">
-                {getFieldDecorator("old_password", {
+                {getFieldDecorator("sxgl_company_type", {
                   rules: [],
-                })(<Input />)}
+                  initialValue: record.sxgl_company_type,
+                })(<Select>
+                  <Option value="国有企业">国有企业</Option>
+                  <Option value="外资企业">外资企业</Option>
+                  <Option value="合资企业">合资企业</Option>
+                  <Option value="私营企业">私营企业</Option>
+                  <Option value="事业单位">事业单位</Option>
+                  <Option value="国家行政机关">国家行政机关</Option>
+                  <Option value="其他">其他</Option>
+                </Select>)}
               </FormItem>
             </Col>
           </Row>
           <Row>
             <Col span={12}>
               <FormItem {...formItemLayout} label="联系人">
-                {getFieldDecorator("old_password", {
+                {getFieldDecorator("sxgl_connect_person", {
                   rules: [],
+                  initialValue: record.sxgl_connect_person,
                 })(<Input />)}
               </FormItem>
             </Col>
             <Col span={12}>
               <FormItem {...formItemLayout} label="联系电话">
-                {getFieldDecorator("old_password", {
+                {getFieldDecorator("sxgl_company_phone", {
                   rules: [],
+                  initialValue: record.sxgl_company_phone,
                 })(<Input />)}
               </FormItem>
             </Col>
@@ -128,9 +162,10 @@ class EditPassword extends React.Component {
           <Row>
             <Col span={24}>
               <FormItem {...formItemLayout2} label="详细地址">
-                {getFieldDecorator("old_password", {
+                {getFieldDecorator("sxgl_company_address", {
                   rules: [],
-                })(<Input.TextArea maxLength={500}/>)}
+                  initialValue: record.sxgl_company_address,
+                })(<Input.TextArea maxLength={500} />)}
               </FormItem>
             </Col>
           </Row>
@@ -140,4 +175,4 @@ class EditPassword extends React.Component {
   }
 }
 
-export default withRouter(Form.create()(EditPassword));
+export default withRouter(Form.create()(UpdateModal));

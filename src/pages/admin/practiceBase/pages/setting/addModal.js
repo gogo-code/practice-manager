@@ -1,5 +1,15 @@
 import React from "react";
-import { Modal, Form, Input, Button, message, Icon, Col, Row } from "antd";
+import {
+  Modal,
+  Form,
+  Input,
+  Button,
+  message,
+  Icon,
+  Col,
+  Row,
+  Select,
+} from "antd";
 import PropTypes from "prop-types";
 import md5 from "blueimp-md5";
 import { withRouter } from "react-router-dom";
@@ -8,7 +18,7 @@ import styles from "./index.module.less";
 import { changeUserPwd, getUser, removeUser } from "@/api/userApi";
 import config from "@/config/config";
 
-class EditPassword extends React.Component {
+class AddModal extends React.Component {
   static propTypes = {
     visible: PropTypes.bool.isRequired,
     hideFunc: PropTypes.func.isRequired,
@@ -54,9 +64,11 @@ class EditPassword extends React.Component {
 
   render() {
     const FormItem = Form.Item;
+    const { Option } = Select;
     const { getFieldDecorator } = this.props.form;
 
-    const { visible, record } = this.props;
+    const { visible} = this.props;
+
     const formItemLayout = {
       labelCol: { span: 6 },
       wrapperCol: { span: 18 },
@@ -138,4 +150,4 @@ class EditPassword extends React.Component {
   }
 }
 
-export default withRouter(Form.create()(EditPassword));
+export default withRouter(Form.create()(AddModal));

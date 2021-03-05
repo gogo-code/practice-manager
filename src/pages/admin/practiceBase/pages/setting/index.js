@@ -9,6 +9,7 @@ import {
 } from "@/api/adminApi/company";
 import Search from "./search";
 import UpdateModal from "./updateModal";
+import AddModal from "./addModal";
 
 export default class index extends Component {
   state = {
@@ -17,6 +18,8 @@ export default class index extends Component {
     loading: false,
     data: [],
     updateModalShow: false,
+    addModalShow: false,
+    updateRow: {},
   };
 
   componentDidMount() {
@@ -46,7 +49,22 @@ export default class index extends Component {
     this.setState({ selectedRowKeys });
   };
 
-  hideUpdateModal = (record) => {
+  // 显示隐藏修改模态框
+  hideUpdateModal = () => {
+    this.setState({
+      updateModalShow: !this.state.updateModalShow,
+    });
+  };
+
+   // 显示隐藏添加模态框
+   hideUpdateModal = () => {
+    this.setState({
+      addModalShow: !this.state.addModalShow,
+    });
+  };
+
+  // 更新获取数据
+  updateData = (record) => {
     this.setState({
       updateModalShow: !this.state.updateModalShow,
       updateRow: record,
@@ -112,7 +130,7 @@ export default class index extends Component {
         render: (text, record) => {
           return (
             <div>
-              <a onClick={() => this.hideUpdateModal(record)}>修改</a>
+              <a onClick={() => this.updateData(record)}>修改</a>
             </div>
           );
         },
@@ -124,6 +142,7 @@ export default class index extends Component {
       selectedRowKeys,
       data,
       updateModalShow,
+      addModalShow,
       updateRow,
     } = this.state;
     const rowSelection = {
@@ -165,6 +184,12 @@ export default class index extends Component {
         <UpdateModal
           visible={updateModalShow}
           hideFunc={this.hideUpdateModal}
+          record={updateRow}
+        />
+
+        <AddModal
+          visible={addModalShow}
+          hideFunc={this.hideAddModal}
           record={updateRow}
         />
       </div>
