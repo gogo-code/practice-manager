@@ -5,12 +5,12 @@ import {
   companyDelete,
   companyAdd,
   companyUpdate,
-  companyResetPwd,
 } from "@/api/adminApi/company";
 import Search from "./search";
 import UpdateModal from "./updateModal";
 import AddModal from "./addModal";
 
+const confirm = Modal.confirm;
 export default class index extends Component {
   state = {
     currentIndex: 1,
@@ -44,8 +44,12 @@ export default class index extends Component {
       });
   };
 
+  // 表单搜索
+  onSearch = (params) => {
+    this.indexQuery(params);
+  };
+
   onSelectChange = (selectedRowKeys) => {
-    console.log("selectedRowKeys changed: ", selectedRowKeys);
     this.setState({ selectedRowKeys });
   };
 
@@ -54,10 +58,19 @@ export default class index extends Component {
     this.setState({
       updateModalShow: !this.state.updateModalShow,
     });
+    this.indexQuery();
   };
 
-   // 显示隐藏添加模态框
-   hideUpdateModal = () => {
+  // 显示隐藏添加模态框
+  hideAddModal = () => {
+    this.setState({
+      addModalShow: !this.state.addModalShow,
+    });
+    this.indexQuery();
+  };
+
+  // 添加数据
+  addData = (params) => {
     this.setState({
       addModalShow: !this.state.addModalShow,
     });
@@ -68,6 +81,71 @@ export default class index extends Component {
     this.setState({
       updateModalShow: !this.state.updateModalShow,
       updateRow: record,
+    });
+  };
+
+  // 添加调用接口
+  onAdd = (token, values) => {
+    companyAdd(token, values)
+      .then((result) => {
+        if (result && result.status === 1) {
+          message.success(result.msg);
+          this.hideAddModal();
+        } else {
+          message.error("添加失败!");
+        }
+      })
+      .catch(() => {
+        message.error("添加失败!!");
+      });
+  };
+
+  // 修改调用接口
+  onUpdate = (token, values) => {
+    values.sxgl_company_id = this.state.updateRow.sxgl_company_id;
+    companyUpdate(token, values)
+      .then((result) => {
+        if (result && result.status === 1) {
+          message.success(result.msg);
+          this.hideUpdateModal();
+        } else {
+          message.error("修改失败!");
+        }
+      })
+      .catch(() => {
+        message.error("修改失败!!");
+      });
+  };
+
+  deleteSelect = (params) => {
+    if (this.state.selectedRowKeys.length < 1) {
+      message.warning("请先选择要删除的项");
+      return;
+    }
+    let _this = this;
+    confirm({
+      title: "提示",
+      content: "确认要删除吗？",
+      okText: "确认",
+      cancelText: "取消",
+      onOk() {
+        let ids = _this.state.selectedRowKeys;
+        companyDelete(ids)
+          .then((result) => {
+            if (result && result.status === 1) {
+              message.success("删除成功!");
+              _this.indexQuery();
+              _this.setState({
+                selectedRowKeys: [],
+              });
+            } else {
+              message.error("删除失败!");
+            }
+          })
+          .catch(() => {
+            message.error("删除失败!");
+          });
+      },
     });
   };
 
@@ -156,12 +234,12 @@ export default class index extends Component {
         <div style={{ marginBottom: 8 }}>
           <Button
             type="primary"
-            onClick={this.start}
+            onClick={this.addData}
             style={{ marginRight: 8 }}
           >
-            增加
+            添加
           </Button>
-          <Button type="danger" ghost onClick={this.start}>
+          <Button type="danger" ghost onClick={this.deleteSelect}>
             删除
           </Button>
         </div>
@@ -171,6 +249,7 @@ export default class index extends Component {
           dataSource={data}
           loading={loading}
           bordered
+          rowKey={(record) => record.sxgl_company_id}
           size="small"
           pagination={{
             pageSize: 8,
@@ -185,12 +264,13 @@ export default class index extends Component {
           visible={updateModalShow}
           hideFunc={this.hideUpdateModal}
           record={updateRow}
+          onUpdate={this.onUpdate}
         />
 
         <AddModal
           visible={addModalShow}
           hideFunc={this.hideAddModal}
-          record={updateRow}
+          onAdd={this.onAdd}
         />
       </div>
     );

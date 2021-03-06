@@ -16,7 +16,7 @@ class Search extends Component {
   onSearch = () => {
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        this.props.onSearch({ param: values });
+        this.props.onSearch(values);
       }
     });
   };
@@ -43,18 +43,19 @@ class Search extends Component {
 
     return (
       <div className={styles.searchBox}>
-        <Form >
+        <Form>
           <Row>
             <Col {...colSpan}>
               <FormItem {...formItemLayout} label="单位名称:">
-                {getFieldDecorator("categoryCode")(<Input />)}
+                {getFieldDecorator("sxgl_company_name")(<Input />)}
               </FormItem>
             </Col>
-            <Col {...colSpan} offset={2}>
+            <Col {...colSpan}>
               <FormItem {...formItemLayout} label="岗位名称:">
-                {getFieldDecorator("enable")(<Input />)}
+                {getFieldDecorator("sxgl_company_name")(<Input />)}
               </FormItem>
             </Col>
+
             <Col {...colSpan} offset={4}>
               <Button
                 type="primary"

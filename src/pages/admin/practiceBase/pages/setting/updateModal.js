@@ -11,12 +11,12 @@ import {
   Select,
 } from "antd";
 import PropTypes from "prop-types";
-import md5 from "blueimp-md5";
 import { withRouter } from "react-router-dom";
 import styles from "./index.module.less";
 
-import { changeUserPwd, getUser, removeUser } from "@/api/userApi";
-import config from "@/config/config";
+import { getUser } from "@/api/userApi";
+import { companyUpdate } from "@/api/adminApi/company";
+
 
 class UpdateModal extends React.Component {
   static propTypes = {
@@ -27,33 +27,7 @@ class UpdateModal extends React.Component {
   handleOk = (e) => {
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        if (values.old_password === values.new_password) {
-          message.warning("新密码和旧密码不能一致!");
-          return;
-        }
-
-        // 密码加密
-        const old_pwd = md5(values.old_password, config.KEY);
-        const new_pwd = md5(values.new_password, config.KEY);
-
-        // 调用接口
-        changeUserPwd(getUser().token, old_pwd, new_pwd)
-          .then((result) => {
-            if (result && result.status === 1) {
-              message.success(result.msg);
-              // 清除用户信息
-              removeUser();
-              //  路由跳转
-              this.props.history.replace("/login");
-            } else if (result && result.status === 0) {
-              message.error(result.msg);
-            } else {
-              message.error("服务器内部错误!");
-            }
-          })
-          .catch(() => {
-            message.error("修改失败!!");
-          });
+        this.props.onUpdate(getUser().token, values);
       }
     });
   };
@@ -91,6 +65,7 @@ class UpdateModal extends React.Component {
             提交
           </Button>,
         ]}
+        destroyOnClose="true"
       >
         <Form className={styles.formbox}>
           <Row>
@@ -129,15 +104,17 @@ class UpdateModal extends React.Component {
                 {getFieldDecorator("sxgl_company_type", {
                   rules: [],
                   initialValue: record.sxgl_company_type,
-                })(<Select>
-                  <Option value="国有企业">国有企业</Option>
-                  <Option value="外资企业">外资企业</Option>
-                  <Option value="合资企业">合资企业</Option>
-                  <Option value="私营企业">私营企业</Option>
-                  <Option value="事业单位">事业单位</Option>
-                  <Option value="国家行政机关">国家行政机关</Option>
-                  <Option value="其他">其他</Option>
-                </Select>)}
+                })(
+                  <Select>
+                    <Option value="国有企业">国有企业</Option>
+                    <Option value="外资企业">外资企业</Option>
+                    <Option value="合资企业">合资企业</Option>
+                    <Option value="私营企业">私营企业</Option>
+                    <Option value="事业单位">事业单位</Option>
+                    <Option value="国家行政机关">国家行政机关</Option>
+                    <Option value="其他">其他</Option>
+                  </Select>
+                )}
               </FormItem>
             </Col>
           </Row>
