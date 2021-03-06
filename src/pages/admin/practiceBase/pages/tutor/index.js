@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Table, Button, Upload, message, Modal, Divider } from "antd";
-import { jobQuery, jobDelete, jobAdd, jobUpdate } from "@/api/adminApi/job";
+import { companyTutorQuery, companyTutorDelete, companyTutorAdd, companyTutorUpdate } from "@/api/adminApi/companyTutor";
 import Search from "./search";
 import UpdateModal from "./updateModal";
 import AddModal from "./addModal";
@@ -15,6 +15,7 @@ export default class index extends Component {
     updateModalShow: false,
     addModalShow: false,
     updateRow: {},
+    uuid:null,
   };
 
   componentDidMount() {
@@ -25,7 +26,7 @@ export default class index extends Component {
     this.setState({
       loading: true,
     });
-    jobQuery(params)
+    companyTutorQuery(params)
       .then((result) => {
         if (result && result.status === 1) {
           this.setState({
@@ -66,8 +67,10 @@ export default class index extends Component {
 
   // 添加数据
   addData = (params) => {
+    let uuid=Date.now().toString()
     this.setState({
       addModalShow: !this.state.addModalShow,
+      uuid:uuid.slice(2,uuid.length-1).valueOf()
     });
   };
 
@@ -81,7 +84,7 @@ export default class index extends Component {
 
   // 添加调用接口
   onAdd = (token, values) => {
-    jobAdd(token, values)
+    companyTutorAdd(token, values)
       .then((result) => {
         if (result && result.status === 1) {
           message.success(result.msg);
@@ -97,8 +100,8 @@ export default class index extends Component {
 
   // 修改调用接口
   onUpdate = (token, values) => {
-    values.sxgl_job_id = this.state.updateRow.sxgl_job_id;
-    jobUpdate(token, values)
+    values.sxgl_company_tutor_id = this.state.updateRow.sxgl_company_tutor_id;
+    companyTutorUpdate(token, values)
       .then((result) => {
         if (result && result.status === 1) {
           message.success(result.msg);
@@ -125,7 +128,7 @@ export default class index extends Component {
       cancelText: "取消",
       onOk() {
         let ids = _this.state.selectedRowKeys;
-        jobDelete(ids)
+        companyTutorDelete(ids)
           .then((result) => {
             if (result && result.status === 1) {
               message.success("删除成功!");
@@ -148,8 +151,8 @@ export default class index extends Component {
     const columns = [
       {
         title: "序号",
-        dataIndex: "sxgl_job_id",
-        key: "sxgl_job_id",
+        dataIndex: "sxgl_company_tutor_id",
+        key: "sxgl_company_tutor_id",
         width: 50,
         align: "center",
         render: (text, record, index) => {
@@ -157,24 +160,45 @@ export default class index extends Component {
         },
       },
       {
-        title: "岗位名称",
-        dataIndex: "sxgl_job_name",
-        key: "sxgl_job_name",
+        title: "职工号",
+        dataIndex: "sxgl_company_tutor_id",
+        key: "sxgl_company_tutor_id",
+        width: 120,
+        align: "center",
+      },
+      {
+        title: "姓名",
+        dataIndex: "sxgl_company_tutor_name",
+        key: "sxgl_company_tutor_name",
+        width: 100,
+        align: "center",
+      },
+      {
+        title: "企业单位",
+        dataIndex: "sxgl_company_name",
+        key: "sxgl_company_name",
         width: 200,
         align: "center",
       },
       {
-        title: "所属单位",
-        dataIndex: "sxgl_company_name",
-        key: "sxgl_job_address",
-        width: 350,
+        title: "职务",
+        dataIndex: "sxgl_company_tutor_job",
+        key: "sxgl_company_tutor_job",
+        width: 100,
         align: "center",
       },
       {
-        title: "岗位类型",
-        dataIndex: "sxgl_job_type",
-        key: "sxgl_job_type",
-        width: 300,
+        title: "学历",
+        dataIndex: "sxgl_company_tutor_edu",
+        key: "sxgl_company_tutor_edu",
+        width: 80,
+        align: "center",
+      },
+      {
+        title: "联系电话",
+        dataIndex: "sxgl_company_tutor_phone",
+        key: "sxgl_company_tutor_phone",
+        width: 180,
         align: "center",
       },
       {
@@ -196,6 +220,7 @@ export default class index extends Component {
       updateModalShow,
       addModalShow,
       updateRow,
+      uuid
     } = this.state;
     const rowSelection = {
       selectedRowKeys,
@@ -223,7 +248,7 @@ export default class index extends Component {
           dataSource={data}
           loading={loading}
           bordered
-          rowKey={(record) => record.sxgl_job_id}
+          rowKey={(record) => record.sxgl_company_tutor_id}
           size="small"
           pagination={{
             pageSize: 8,
@@ -245,6 +270,7 @@ export default class index extends Component {
           visible={addModalShow}
           hideFunc={this.hideAddModal}
           onAdd={this.onAdd}
+          uuid={uuid}
         />
       </div>
     );

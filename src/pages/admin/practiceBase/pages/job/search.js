@@ -71,6 +71,7 @@ class Search extends Component {
                     style={{ width: "174px" }}
                     placeholder="请选择所属单位"
                     onFocus={this.queryCompanyName}
+                    allowClear
                   >
                     {this.state.companyNameList.map((val) => (
                       <Option

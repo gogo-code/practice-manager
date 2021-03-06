@@ -18,7 +18,6 @@ import { getUser } from "@/api/userApi";
 
 import { queryCompanyName } from "@/api/adminApi/company";
 
-
 class UpdateModal extends React.Component {
   static propTypes = {
     visible: PropTypes.bool.isRequired,
@@ -92,44 +91,74 @@ class UpdateModal extends React.Component {
         <Form className={styles.formbox}>
           <Row>
             <Col span={12}>
-              <FormItem {...formItemLayout} label="岗位名称">
-                {getFieldDecorator("sxgl_job_name", {
+              <FormItem {...formItemLayout} label="职工号">
+                {getFieldDecorator("sxgl_company_tutor_id", {
                   rules: [{ required: true, message: "请输入岗位名称!" }],
-                  initialValue:record.sxgl_job_name
+                  initialValue: record.sxgl_company_tutor_id,
+                })(<Input disabled />)}
+              </FormItem>
+            </Col>
+            <Col span={12}>
+              <FormItem {...formItemLayout} label="姓名">
+                {getFieldDecorator("sxgl_company_tutor_name", {
+                  rules: [{ required: true, message: "请输入姓名!" }],
+                  initialValue: record.sxgl_company_tutor_name,
                 })(<Input />)}
               </FormItem>
             </Col>
-            <Col span={12}></Col>
           </Row>
           <Row>
             <Col span={12}>
-              <FormItem {...formItemLayout} label="所属单位">
+              <FormItem {...formItemLayout} label="企业单位">
                 {getFieldDecorator("sxgl_company_id", {
                   rules: [],
-                  initialValue:record.sxgl_company_id
+                  initialValue: record.sxgl_company_id,
                 })(
-                  <Select placeholder="请选择所属单位" onFocus={this.queryCompanyName}>
-                    {this.state.companyNameList.map(val => (
-                            <Option key={val.sxgl_company_id} value={val.sxgl_company_id}>
-                              {val.sxgl_company_name}
-                            </Option>
-                          ))}
+                  <Select
+                    placeholder="请选择所属单位"
+                    onFocus={this.queryCompanyName}
+                  >
+                    {this.state.companyNameList.map((val) => (
+                      <Option
+                        key={val.sxgl_company_id}
+                        value={val.sxgl_company_id}
+                      >
+                        {val.sxgl_company_name}
+                      </Option>
+                    ))}
                   </Select>
                 )}
               </FormItem>
             </Col>
             <Col span={12}>
-              <FormItem {...formItemLayout} label="岗位类型">
-                {getFieldDecorator("sxgl_job_type", {
+              <FormItem {...formItemLayout} label="学历">
+                {getFieldDecorator("sxgl_company_tutor_edu", {
                   rules: [],
-                  initialValue:record.sxgl_job_type
+                  initialValue: record.sxgl_company_tutor_edu,
                 })(
-                  <Select placeholder="请选择岗位类型">
-                    <Option value="管理岗位">管理岗位</Option>
-                    <Option value="工勤岗位">工勤岗位</Option>
-                    <Option value="专业技术岗位">专业技术岗位</Option>
+                  <Select placeholder="请选择学历">
+                    <Option value="专科">专科</Option>
+                    <Option value="本科">本科</Option>
+                    <Option value="硕士">硕士</Option>
+                    <Option value="博士">博士</Option>
                   </Select>
                 )}
+              </FormItem>
+            </Col>
+          </Row>
+          <Row>
+            <Col span={12}>
+              <FormItem {...formItemLayout} label="联系电话">
+                {getFieldDecorator("sxgl_company_tutor_phone", {
+                  initialValue: record.sxgl_company_tutor_phone,
+                })(<Input />)}
+              </FormItem>
+            </Col>
+            <Col span={12}>
+              <FormItem {...formItemLayout} label="职务">
+                {getFieldDecorator("sxgl_company_tutor_job", {
+                  initialValue: record.sxgl_company_tutor_job,
+                })(<Input />)}
               </FormItem>
             </Col>
           </Row>

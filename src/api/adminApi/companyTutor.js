@@ -1,25 +1,21 @@
 import ajax from "../index";
 
 // 查询公司教师信息
-export const companyQuery = (params) =>
-  ajax("api/auth/admin/company/query", params);
-
-// 查询公司教师名称信息
-export const queryCompanyName = (params) =>
-  ajax("api/auth/admin/company/queryCompanyName", params);
+export const companyTutorQuery = (params) =>
+  ajax("api/auth/admin/companyTutor/query", params);
 
 // 添加公司教师信息
-export const companyAdd = (token, data) =>
-  ajax("api/auth/admin/company/add", { token, data }, "post");
+export const companyTutorAdd = (token, data) =>
+  ajax("api/auth/admin/companyTutor/add", { token, data }, "post");
 
 // 删除公司教师信息
-export const companyDelete = (ids) =>
-  ajax("api/auth/admin/company/delete", { ids }, "post");
+export const companyTutorDelete = (ids) =>
+  ajax("api/auth/admin/companyTutor/delete", { ids }, "post");
 
 // 修改公司教师信息
-export const companyUpdate = (token, data) =>
+export const companyTutorUpdate = (token, data) =>
   ajax(
-    "api/auth/admin/company/update",
+    "api/auth/admin/companyTutor/update",
     {
       token,
       data,
