@@ -1,22 +1,32 @@
 import React, { Component } from "react";
-import { Button, Col, Form, Select, Input, Row } from "antd";
+import { Button, Col, Form, Select, Input, Row, message } from "antd";
 import styles from "./index.module.less";
-
-const FormItem = Form.Item;
+import { queryCompanyName } from "@/api/adminApi/company";
 
 class Search extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
+  state = {
+    companyNameList: [],
+  };
 
-  componentWillMount() {}
+  queryCompanyName = (params) => {
+    queryCompanyName()
+      .then((result) => {
+        if (result && result.status === 1) {
+          this.setState({
+            companyNameList: result.data,
+          });
+        }
+      })
+      .catch(() => {
+        message.error("查询失败!");
+      });
+  };
 
   // 查询
   onSearch = () => {
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        this.props.onSearch({ param: values });
+        this.props.onSearch(values);
       }
     });
   };
@@ -39,22 +49,42 @@ class Search extends Component {
       xxl: 6,
     };
 
+    const FormItem = Form.Item;
+    const { Option } = Select;
     const { getFieldDecorator } = this.props.form;
 
     return (
       <div className={styles.searchBox}>
-        <Form >
+        <Form>
           <Row>
             <Col {...colSpan}>
-              <FormItem {...formItemLayout} label="姓名:">
-                {getFieldDecorator("categoryCode")(<Input />)}
+              <FormItem {...formItemLayout} label="岗位名称:">
+                {getFieldDecorator("sxgl_job_name")(<Input />)}
               </FormItem>
             </Col>
-            <Col {...colSpan} offset={2}>
-              <FormItem {...formItemLayout} label="所属企业单位:">
-                {getFieldDecorator("enable")(<Input />)}
+            <Col {...colSpan}>
+              <FormItem {...formItemLayout} label="所属单位">
+                {getFieldDecorator("sxgl_company_id", {
+                  rules: [],
+                })(
+                  <Select
+                    style={{ width: "174px" }}
+                    placeholder="请选择所属单位"
+                    onFocus={this.queryCompanyName}
+                  >
+                    {this.state.companyNameList.map((val) => (
+                      <Option
+                        key={val.sxgl_company_id}
+                        value={val.sxgl_company_id}
+                      >
+                        {val.sxgl_company_name}
+                      </Option>
+                    ))}
+                  </Select>
+                )}
               </FormItem>
             </Col>
+
             <Col {...colSpan} offset={4}>
               <Button
                 type="primary"

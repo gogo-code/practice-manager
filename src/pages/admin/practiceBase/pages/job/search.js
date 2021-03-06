@@ -1,16 +1,26 @@
 import React, { Component } from "react";
-import { Button, Col, Form, Select, Input, Row } from "antd";
+import { Button, Col, Form, Select, Input, Row, message } from "antd";
 import styles from "./index.module.less";
-
-const FormItem = Form.Item;
+import { queryCompanyName } from "@/api/adminApi/company";
 
 class Search extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
+  state = {
+    companyNameList: [],
+  };
 
-  componentWillMount() {}
+  queryCompanyName = (params) => {
+    queryCompanyName()
+      .then((result) => {
+        if (result && result.status === 1) {
+          this.setState({
+            companyNameList: result.data,
+          });
+        }
+      })
+      .catch(() => {
+        message.error("查询失败!");
+      });
+  };
 
   // 查询
   onSearch = () => {
@@ -39,6 +49,8 @@ class Search extends Component {
       xxl: 6,
     };
 
+    const FormItem = Form.Item;
+    const { Option } = Select;
     const { getFieldDecorator } = this.props.form;
 
     return (
@@ -46,13 +58,30 @@ class Search extends Component {
         <Form>
           <Row>
             <Col {...colSpan}>
-              <FormItem {...formItemLayout} label="单位名称:">
-                {getFieldDecorator("sxgl_company_name")(<Input />)}
+              <FormItem {...formItemLayout} label="岗位名称:">
+                {getFieldDecorator("sxgl_job_name")(<Input />)}
               </FormItem>
             </Col>
             <Col {...colSpan}>
-              <FormItem {...formItemLayout} label="岗位名称:">
-                {getFieldDecorator("sxgl_company_name")(<Input />)}
+              <FormItem {...formItemLayout} label="所属单位">
+                {getFieldDecorator("sxgl_company_id", {
+                  rules: [],
+                })(
+                  <Select
+                    style={{ width: "174px" }}
+                    placeholder="请选择所属单位"
+                    onFocus={this.queryCompanyName}
+                  >
+                    {this.state.companyNameList.map((val) => (
+                      <Option
+                        key={val.sxgl_company_id}
+                        value={val.sxgl_company_id}
+                      >
+                        {val.sxgl_company_name}
+                      </Option>
+                    ))}
+                  </Select>
+                )}
               </FormItem>
             </Col>
 
