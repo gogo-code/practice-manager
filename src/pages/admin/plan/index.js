@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Table, Button, Upload, message, Modal, Divider } from "antd";
-import { jobQuery, jobDelete, jobAdd, jobUpdate } from "@/api/adminApi/job";
+import { planQuery, planDelete, planAdd, planUpdate } from "@/api/adminApi/plan";
 import Search from "./search";
 import UpdateModal from "./updateModal";
 import AddModal from "./addModal";
@@ -25,7 +25,7 @@ export default class index extends Component {
     this.setState({
       loading: true,
     });
-    jobQuery(params)
+    planQuery(params)
       .then((result) => {
         if (result && result.status === 1) {
           this.setState({
@@ -81,7 +81,7 @@ export default class index extends Component {
 
   // 添加调用接口
   onAdd = (token, values) => {
-    jobAdd(token, values)
+    planAdd(token, values)
       .then((result) => {
         if (result && result.status === 1) {
           message.success(result.msg);
@@ -97,8 +97,8 @@ export default class index extends Component {
 
   // 修改调用接口
   onUpdate = (token, values) => {
-    values.sxgl_job_id = this.state.updateRow.sxgl_job_id;
-    jobUpdate(token, values)
+    values.sxgl_plan_id = this.state.updateRow.sxgl_plan_id;
+    planUpdate(token, values)
       .then((result) => {
         if (result && result.status === 1) {
           message.success(result.msg);
@@ -125,7 +125,7 @@ export default class index extends Component {
       cancelText: "取消",
       onOk() {
         let ids = _this.state.selectedRowKeys;
-        jobDelete(ids)
+        planDelete(ids)
           .then((result) => {
             if (result && result.status === 1) {
               message.success("删除成功!");
@@ -171,6 +171,13 @@ export default class index extends Component {
         align: "center",
       },
       {
+        title: "班级",
+        dataIndex: "sxgl_student_class",
+        key: "sxgl_student_class",
+        width: 350,
+        align: "center",
+      },
+      {
         title: "实习学年",
         dataIndex: "sxgl_year",
         key: "sxgl_year",
@@ -202,6 +209,27 @@ export default class index extends Component {
         title: "实习类型",
         dataIndex: "sxgl_type",
         key: "sxgl_type",
+        width: 300,
+        align: "center",
+      },
+      {
+        title: "实习单位",
+        dataIndex: "sxgl_company_name",
+        key: "sxgl_company_name",
+        width: 300,
+        align: "center",
+      },
+      {
+        title: "校内教师",
+        dataIndex: "sxgl_name",
+        key: "sxgl_name",
+        width: 300,
+        align: "center",
+      },
+      {
+        title: "校外教师",
+        dataIndex: "sxgl_company_tutor_name",
+        key: "sxgl_company_tutor_name",
         width: 300,
         align: "center",
       },
@@ -251,7 +279,7 @@ export default class index extends Component {
           dataSource={data}
           loading={loading}
           bordered
-          rowKey={(record) => record.sxgl_job_id}
+          rowKey={(record) => record.sxgl_plan_id}
           size="small"
           pagination={{
             pageSize: 8,
