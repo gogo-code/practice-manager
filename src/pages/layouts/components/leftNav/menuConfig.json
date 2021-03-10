@@ -33,34 +33,16 @@
           }
         ]
       },
+    
       {
-        "id": 6,
-        "title": "实习设置",
-        "key": "/personSetti",
-        "icon": "setting",
-        "children": [
-          {
-            "id": 7,
-            "title": "实习基地维护",
-            "key": "/personSetting/4"
-     
-          },
-          {
-            "id": 8,
-            "title": "实习基地岗位",
-            "key": "/personSetting/5"   
-          },
-          {
-            "id": 9,
-            "title": "基地指导老师",
-            "key": "/personSetting/6"
-     
-          }
-        ]
+        "id": 9,
+        "title": "实习计划管理",
+        "key": "/plan",
+        "icon": "book"
       },
       {
         "id": 10,
-        "title": "个人信息管理",
+        "title": "测试",
         "key": "/personSetting",
         "icon": "setting"
       },

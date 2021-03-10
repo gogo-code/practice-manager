@@ -12,6 +12,7 @@ import Home from "./../home";
 import PersonSetting from "./../personSetting";
 import PracticeBase from "./../admin/practiceBase";
 import UserSetting from "./../admin/userSetting";
+import Plan from './../admin/plan';
 
 // 引入路由动画组件
 import { TransitionGroup, CSSTransition } from "react-transition-group";
@@ -130,6 +131,8 @@ export default class Layouts extends Component {
                   <Route path={"/practiceBase"} component={PracticeBase} />
                   <Route path={"/personSetting"} component={PersonSetting} />
                   <Route path={"/userSetting"} component={UserSetting} />
+                  <Route path={"/plan"} component={Plan} />
+
                   <Route component={NotFound} />
                 </Switch>
               {/* </CSSTransition>
