@@ -18,33 +18,18 @@
             "id": 3,
             "title": "实习基地维护",
             "key": "/practiceBase/setting"
-     
           },
           {
             "id": 4,
             "title": "实习基地岗位",
-            "key": "/practiceBase/job"   
+            "key": "/practiceBase/job"
           },
           {
             "id": 5,
             "title": "基地指导老师",
             "key": "/practiceBase/tutor"
-     
           }
         ]
-      },
-    
-      {
-        "id": 9,
-        "title": "实习计划管理",
-        "key": "/plan",
-        "icon": "book"
-      },
-      {
-        "id": 10,
-        "title": "测试",
-        "key": "/personSetting",
-        "icon": "setting"
       },
       {
         "id": 11,
@@ -56,14 +41,20 @@
             "id": 12,
             "title": "学生信息管理",
             "key": "/userSetting/student"
-     
           },
           {
             "id": 13,
             "title": "教师信息管理",
-            "key": "/userSetting/teacher"   
+            "key": "/userSetting/teacher"
           }
         ]
+      },
+
+      {
+        "id": 9,
+        "title": "实习计划管理",
+        "key": "/plan",
+        "icon": "book"
       }
     ]
   },
@@ -115,7 +106,6 @@
         "title": "个人信息管理",
         "key": "/personSetting",
         "icon": "setting"
-        
       }
     ]
   }

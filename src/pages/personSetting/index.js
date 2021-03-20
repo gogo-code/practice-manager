@@ -1,3 +1,10 @@
+
+//  {
+//   "id": 10,
+//   "title": "测试",
+//   "key": "/personSetting",
+//   "icon": "setting"
+// },
 import React, { Component } from "react";
 import { Upload, message, Button, Icon } from "antd";
 import { fileUpload } from "@/api/fileApi.js";

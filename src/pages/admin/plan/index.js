@@ -4,6 +4,7 @@ import { planQuery, planDelete, planAdd, planUpdate } from "@/api/adminApi/plan"
 import Search from "./search";
 import UpdateModal from "./updateModal";
 import AddModal from "./addModal";
+import moment from "moment";
 
 const confirm = Modal.confirm;
 export default class index extends Component {
@@ -197,6 +198,9 @@ export default class index extends Component {
         key: "sxgl_createtime",
         width: 300,
         align: "center",
+        render: (text) => {
+          return moment({text}).format("yyyy-MM-DD")
+        },
       },
       {
         title: "结束日期",
@@ -204,6 +208,9 @@ export default class index extends Component {
         key: "sxgl_endtime",
         width: 300,
         align: "center",
+        render: (text) => {
+          return moment({text}).format("yyyy-MM-DD")
+        },
       },
       {
         title: "实习类型",
