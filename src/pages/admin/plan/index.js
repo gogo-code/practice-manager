@@ -272,12 +272,20 @@ export default class index extends Component {
           <Button
             type="primary"
             onClick={this.addData}
-            style={{ marginRight: 8 }}
           >
             添加
           </Button>
           <Button type="danger" ghost onClick={this.deleteSelect}>
             删除
+          </Button>
+          <Button type="primary" ghost onClick={this.deleteSelect}>
+            指定实习单位
+          </Button>
+          <Button type="primary" ghost onClick={this.deleteSelect}>
+            指定校外指导教师
+          </Button>
+          <Button type="primary" ghost onClick={this.deleteSelect}>
+            指定校内指导教师
           </Button>
         </div>
         <Table

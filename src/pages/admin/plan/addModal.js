@@ -106,7 +106,7 @@ class AddModal extends React.Component {
     return (
       <Modal
         width="700px"
-        title="新增岗位信息"
+        title="新增实习计划"
         visible={visible}
         onCancel={this.handleCancel}
         footer={[

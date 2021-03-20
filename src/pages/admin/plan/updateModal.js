@@ -9,6 +9,7 @@ import {
   Col,
   Row,
   Select,
+  DatePicker
 } from "antd";
 import PropTypes from "prop-types";
 import { withRouter } from "react-router-dom";
@@ -17,6 +18,7 @@ import styles from "./index.module.less";
 import { getUser } from "@/api/userApi";
 
 import { queryCompanyName } from "@/api/adminApi/company";
+const { RangePicker } = DatePicker;
 
 
 class UpdateModal extends React.Component {
@@ -27,6 +29,8 @@ class UpdateModal extends React.Component {
 
   state = {
     companyNameList: [],
+    startValue: null,
+      endValue: null,
   };
   componentDidMount() {
     this.queryCompanyName();
@@ -44,6 +48,37 @@ class UpdateModal extends React.Component {
       .catch(() => {
         message.error("查询失败!");
       });
+  };
+
+
+  disabledStartDate = (startValue) => {
+    const { endValue } = this.state;
+    if (!startValue || !endValue) {
+      return false;
+    }
+    return startValue.valueOf() > endValue.valueOf();
+  };
+
+  disabledEndDate = (endValue) => {
+    const { startValue } = this.state;
+    if (!endValue || !startValue) {
+      return false;
+    }
+    return endValue.valueOf() <= startValue.valueOf();
+  };
+
+  onChange = (field, value) => {
+    this.setState({
+      [field]: value
+    });
+  };
+
+  onStartChange = (value) => {
+    this.onChange("startValue", value);
+  };
+
+  onEndChange = (value) => {
+    this.onChange("endValue", value);
   };
 
   handleOk = (e) => {
@@ -76,7 +111,7 @@ class UpdateModal extends React.Component {
     return (
       <Modal
         width="700px"
-        title="修改岗位信息"
+        title="修改实习计划"
         visible={visible}
         onCancel={this.handleCancel}
         footer={[
@@ -91,29 +126,96 @@ class UpdateModal extends React.Component {
       >
         <Form className={styles.formbox}>
           <Row>
-            <Col span={12}>
-              <FormItem {...formItemLayout} label="岗位名称">
+            <Col>
+              <FormItem {...formItemLayout2} label="计划名称">
                 {getFieldDecorator("sxgl_job_name", {
-                  rules: [{ required: true, message: "请输入岗位名称!" }],
-                  initialValue:record.sxgl_job_name
+                  rules: [{ required: true, message: "请输入计划名称!" }],
                 })(<Input />)}
               </FormItem>
             </Col>
-            <Col span={12}></Col>
+          </Row>
+          <Row>
+            <Col>
+            <FormItem {...formItemLayout2} label="实习时间:">
+                {getFieldDecorator("startAndEndTime", {
+                  rules: [{ required: true, message: "必填" }]
+                })(<RangePicker showTime format="YYYY-MM-DD" />)}
+              </FormItem>
+            </Col>
+          </Row>
+          <Row>
+            <Col span={12}>
+              <FormItem {...formItemLayout} label="学年">
+                {getFieldDecorator("sxgl_job_name", {
+                })(
+                  <Select placeholder="请选择">
+                    <Option value="2020-2021">2020-2021</Option>
+                    <Option value="2021-2022">2021-2022</Option>
+                    <Option value="2022-2023">2022-2023</Option>
+                  </Select>
+                )}
+              </FormItem>
+            </Col>
+            <Col span={12}>
+              <FormItem {...formItemLayout} label="所属院系">
+                {getFieldDecorator("sxgl_company_id", {
+                  rules: [],
+                })(
+                  <Select placeholder="请选择">
+                    <Option value="计算机学院">计算机学院</Option>
+                    <Option value="医学院">医学院</Option>
+                    <Option value="机械学院">机械学院</Option>
+                  </Select>
+                )}
+              </FormItem>
+            </Col>
+          </Row>
+          <Row>
+            <Col span={12}>
+              <FormItem {...formItemLayout} label="实习年级">
+                {getFieldDecorator("sxgl_company_id", {
+                  rules: [],
+                })(
+                  <Select placeholder="请选择">
+                    <Option value="2017级">2017级</Option>
+                    <Option value="2018级">2018级</Option>
+                    <Option value="2019级">2019级</Option>
+                  </Select>
+                )}
+              </FormItem>
+            </Col>
+            <Col span={12}>
+              <FormItem {...formItemLayout} label="实习类型">
+                {getFieldDecorator("sxgl_job_type", {
+                  rules: [],
+                })(
+                  <Select placeholder="请选择">
+                    <Option value="认识实习">认识实习</Option>
+                    <Option value="生产实习">生产实习</Option>
+                    <Option value="毕业实习">毕业实习</Option>
+                  </Select>
+                )}
+              </FormItem>
+            </Col>
           </Row>
           <Row>
             <Col span={12}>
               <FormItem {...formItemLayout} label="所属单位">
                 {getFieldDecorator("sxgl_company_id", {
                   rules: [],
-                  initialValue:record.sxgl_company_id
                 })(
-                  <Select placeholder="请选择所属单位" onFocus={this.queryCompanyName}>
-                    {this.state.companyNameList.map(val => (
-                            <Option key={val.sxgl_company_id} value={val.sxgl_company_id}>
-                              {val.sxgl_company_name}
-                            </Option>
-                          ))}
+                  <Select
+                    placeholder="请选择所属单位"
+                    onFocus={this.queryCompanyName}
+                  >
+                    {this.state.companyNameList.map((val) => (
+                      <Option
+                        key={val.sxgl_company_id}
+                        value={val.sxgl_company_id}
+                      >
+                        {val.sxgl_company_name}
+                      </Option>
+                    ))}
                   </Select>
                 )}
               </FormItem>
@@ -122,7 +224,6 @@ class UpdateModal extends React.Component {
               <FormItem {...formItemLayout} label="岗位类型">
                 {getFieldDecorator("sxgl_job_type", {
                   rules: [],
-                  initialValue:record.sxgl_job_type
                 })(
                   <Select placeholder="请选择岗位类型">
                     <Option value="管理岗位">管理岗位</Option>
