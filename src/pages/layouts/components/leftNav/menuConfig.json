@@ -55,6 +55,18 @@
         "title": "实习计划管理",
         "key": "/plan",
         "icon": "book"
+      },
+      {
+        "id": 10,
+        "title": "实习申请审核",
+        "key": "/check",
+        "icon": "edit"
+      },
+      {
+        "id": 14,
+        "title": "统计相关信息",
+        "key": "/count",
+        "icon": "bar-chart"
       }
     ]
   },
@@ -69,9 +81,33 @@
       },
       {
         "id": 2,
-        "title": "个人信息管理",
-        "key": "/personSetting",
-        "icon": "setting"
+        "title": "实习计划查看",
+        "key": "/student/plan",
+        "icon": "book"
+      },
+      {
+        "id": 3,
+        "title": "实习方式选择",
+        "key": "/student/intention",
+        "icon": "select"
+      },
+      {
+        "id": 4,
+        "title": "实习报告上传",
+        "key": "/student/process",
+        "icon": "upload"
+      },
+      {
+        "id": 5,
+        "title": "实习任务查看",
+        "key": "/student/quest",
+        "icon": "read"
+      },
+      {
+        "id": 6,
+        "title": "实习结果查看",
+        "key": "/student/result",
+        "icon": "read"
       }
     ]
   },
@@ -103,9 +139,21 @@
       },
       {
         "id": 2,
-        "title": "个人信息管理",
-        "key": "/personSetting",
+        "title": "实习任务管理",
+        "key": "/releaseQuest",
         "icon": "setting"
+      },
+      {
+        "id": 3,
+        "title": "查看学生信息",
+        "key": "/studentInformation",
+        "icon": "read"
+      },
+      {
+        "id": 4,
+        "title": "实习成绩评定",
+        "key": "/practiceScore",
+        "icon": "highlight"
       }
     ]
   }

@@ -87,7 +87,6 @@ class LeftNav extends React.Component {
     let pPath = path.substr(0, path.indexOf("/", 2))
       ? path.substr(0, path.indexOf("/", 2))
       : path;
-   
     // console.log(path);
     const { sxgl_role_id } = getUser();
     let _menuList = this.state.menuList.find((val) => val.id == sxgl_role_id).data;

@@ -32,19 +32,7 @@ class AddModal extends React.Component {
       endValue: null,
   };
 
-  queryCompanyName = (params) => {
-    queryCompanyName()
-      .then((result) => {
-        if (result && result.status === 1) {
-          this.setState({
-            companyNameList: result.data,
-          });
-        }
-      })
-      .catch(() => {
-        message.error("查询失败!");
-      });
-  };
+
 
   disabledStartDate = (startValue) => {
     const { endValue } = this.state;
@@ -123,7 +111,7 @@ class AddModal extends React.Component {
           <Row>
             <Col>
               <FormItem {...formItemLayout2} label="计划名称">
-                {getFieldDecorator("sxgl_job_name", {
+                {getFieldDecorator("sxgl_plan_name", {
                   rules: [{ required: true, message: "请输入计划名称!" }],
                 })(<Input />)}
               </FormItem>
@@ -141,25 +129,30 @@ class AddModal extends React.Component {
           <Row>
             <Col span={12}>
               <FormItem {...formItemLayout} label="学年">
-                {getFieldDecorator("sxgl_job_name", {
+                {getFieldDecorator("sxgl_year", {
                 })(
                   <Select placeholder="请选择">
-                    <Option value="2020-2021">2020-2021</Option>
-                    <Option value="2021-2022">2021-2022</Option>
-                    <Option value="2022-2023">2022-2023</Option>
+                    <Option value="2020-2021上学期">2020-2021上学期</Option>
+                    <Option value="2020-2021下学期">2020-2021下学期</Option>
+                    <Option value="2021-2022上学期">2021-2022上学期</Option>
                   </Select>
                 )}
               </FormItem>
             </Col>
             <Col span={12}>
               <FormItem {...formItemLayout} label="所属院系">
-                {getFieldDecorator("sxgl_company_id", {
+                {getFieldDecorator("sxgl_department", {
                   rules: [],
                 })(
                   <Select placeholder="请选择">
                     <Option value="计算机学院">计算机学院</Option>
                     <Option value="医学院">医学院</Option>
                     <Option value="机械学院">机械学院</Option>
+                    <Option value="建筑学院">建筑学院</Option>
+                    <Option value="理学院">理学院</Option>
+                    <Option value="美术学院">美术学院</Option>
+                    <Option value="法学院">法学院</Option>
+                    <Option value="经济管理学院">经济管理学院</Option>
                   </Select>
                 )}
               </FormItem>
@@ -168,7 +161,7 @@ class AddModal extends React.Component {
           <Row>
             <Col span={12}>
               <FormItem {...formItemLayout} label="实习年级">
-                {getFieldDecorator("sxgl_company_id", {
+                {getFieldDecorator("sxgl_grade", {
                   rules: [],
                 })(
                   <Select placeholder="请选择">
@@ -181,49 +174,13 @@ class AddModal extends React.Component {
             </Col>
             <Col span={12}>
               <FormItem {...formItemLayout} label="实习类型">
-                {getFieldDecorator("sxgl_job_type", {
+                {getFieldDecorator("sxgl_type", {
                   rules: [],
                 })(
                   <Select placeholder="请选择">
                     <Option value="认识实习">认识实习</Option>
                     <Option value="生产实习">生产实习</Option>
                     <Option value="毕业实习">毕业实习</Option>
-                  </Select>
-                )}
-              </FormItem>
-            </Col>
-          </Row>
-          <Row>
-            <Col span={12}>
-              <FormItem {...formItemLayout} label="所属单位">
-                {getFieldDecorator("sxgl_company_id", {
-                  rules: [],
-                })(
-                  <Select
-                    placeholder="请选择所属单位"
-                    onFocus={this.queryCompanyName}
-                  >
-                    {this.state.companyNameList.map((val) => (
-                      <Option
-                        key={val.sxgl_company_id}
-                        value={val.sxgl_company_id}
-                      >
-                        {val.sxgl_company_name}
-                      </Option>
-                    ))}
-                  </Select>
-                )}
-              </FormItem>
-            </Col>
-            <Col span={12}>
-              <FormItem {...formItemLayout} label="岗位类型">
-                {getFieldDecorator("sxgl_job_type", {
-                  rules: [],
-                })(
-                  <Select placeholder="请选择岗位类型">
-                    <Option value="管理岗位">管理岗位</Option>
-                    <Option value="工勤岗位">工勤岗位</Option>
-                    <Option value="专业技术岗位">专业技术岗位</Option>
                   </Select>
                 )}
               </FormItem>

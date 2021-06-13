@@ -4,6 +4,9 @@ import ajax from "../index";
 export const companyTutorQuery = (params) =>
   ajax("api/auth/admin/companyTutor/query", params);
 
+export const JobQuery = (params) =>
+  ajax("api/auth/admin/job/queryJob", params);
+
 // 添加公司教师信息
 export const companyTutorAdd = (token, data) =>
   ajax("api/auth/admin/companyTutor/add", { token, data }, "post");

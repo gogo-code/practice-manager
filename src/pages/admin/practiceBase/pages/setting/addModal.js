@@ -71,7 +71,7 @@ class AddModal extends React.Component {
         <Form className={styles.formbox}>
           <Row>
             <Col span={12}>
-              <FormItem {...formItemLayout} label="单位名称">
+              <FormItem {...formItemLayout} label="单位名称" >
                 {getFieldDecorator("sxgl_company_name", {
                   rules: [{ required: true, message: "请输入单位名称!" }],
                 })(<Input />)}

@@ -1,0 +1,52 @@
+.ly-card {
+  margin-bottom: 16px;
+  :global {
+    .ant-card {
+      height: 100%;
+      width: 100%;
+      // border-radius: 6px;
+      // box-shadow: 0 2px 8px rgba(0, 0, 0, 0.09);
+      border-color: rgba(0, 0, 0, 0.09);
+      .ant-card-head {
+        padding: 0 16px;
+        height: 48px;
+        .ant-card-head-title {
+          padding: 12px 0;
+          color: #333;
+          font-weight: bold;
+        }
+        .ant-card-extra {
+          padding: 12px 0;
+        }
+      }
+      .ant-card-body {
+        padding: 0;
+      }
+      .ly-card-inner {
+        padding: 16px;
+      }
+      .ant-tabs {
+        overflow: inherit;
+        .ant-tabs-bar {
+          margin: 0;
+          border: none;
+          .ant-tabs-tab {
+            line-height: 48px;
+            height: 48px;
+            padding: 0 8px;
+            margin-right: 16px;
+            color: #333;
+            font-weight: bold;
+            &.ant-tabs-tab-active {
+              color: #1890ff;
+            }
+          }
+        }
+        .ant-tabs-ink-bar {
+          height: 3px;
+          bottom: 0;
+        }
+      }
+    }
+  }
+}

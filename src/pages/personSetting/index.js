@@ -18,7 +18,7 @@ export default class index extends Component {
   render() {
     const props = {
       name: "uploadDemo",
-      action: "/api/auth/upload/uploadDemo",
+      action: "/api/auth/upload/uploadReport",
       //   headers: {
       //     authorization: "authorization-text",
       //   },

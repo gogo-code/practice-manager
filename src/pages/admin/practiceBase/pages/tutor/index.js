@@ -182,8 +182,8 @@ export default class index extends Component {
       },
       {
         title: "职务",
-        dataIndex: "sxgl_company_tutor_job",
-        key: "sxgl_company_tutor_job",
+        dataIndex: "sxgl_job_name",
+        key: "sxgl_job_name",
         width: 100,
         align: "center",
       },

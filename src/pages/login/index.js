@@ -12,6 +12,7 @@ import {
   message,
 } from "antd";
 import md5 from "blueimp-md5";
+import classNames from 'classnames';
 
 import { checkLogin, saveUser } from "./../../api/userApi";
 import config from "./../../config/config";
@@ -187,7 +188,7 @@ class Login extends React.Component {
     Modal.info({
       title: "忘记密码请联系管理员重置密码 !",
       onOk() {},
-      okText:'好的'
+      okText: "好的",
     });
   };
 
@@ -211,13 +212,14 @@ class Login extends React.Component {
         onMouseUp={this.onMouseUp}
       >
         <div className={styles.content}>
-          <div className={styles.main}>
-            <div
-              className={styles.left}
-              style={{
-                backgroundImage: `url(${leftBg})`,
-              }}
-            >
+          <div
+            className={styles.main}
+            style={{
+              backgroundImage: `url(${leftBg})`,
+              backgroundRepeat: "no-repeat",
+            }}
+          >
+            <div className={styles.left}>
               <img src={`${logoUrl}`} className={styles.logo} />
               <img src={`${imageUrl}`} className={styles.img} />
             </div>
@@ -311,10 +313,14 @@ class Login extends React.Component {
                     </FormItem>
                     <FormItem>
                       <Button
-                        className={styles.btn}
+                        className={classNames(styles.btn, verifyText === "验证成功" ? styles.btnSuc : "")}
                         type="primary"
                         size="large"
                         htmlType="submit"
+                        style={{
+                          opacity: verifyText === "验证成功" ? "1" : "0.65",
+                          transition: "0.5s",
+                        }}
                       >
                         登&nbsp;录
                       </Button>

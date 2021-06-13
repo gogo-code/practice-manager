@@ -37,6 +37,19 @@ class Search extends Component {
     this.onSearch();
   };
 
+  onSearch = (val) => {
+    console.log(val)
+  }
+  onBlur = (params) => {
+    console.log(1123)
+  }
+  onChange = (val) => {
+    console.log(`selected ${val}`);
+  }
+  
+  
+  
+
   render() {
     // 布局
     const formItemLayout = {
@@ -72,6 +85,13 @@ class Search extends Component {
                     placeholder="请选择所属单位"
                     onFocus={this.queryCompanyName}
                     allowClear
+                    optionFilterProp="children"
+                    onChange={this.onChange}
+                    onBlur={this.onBlur}
+                    onSearch={this.onSearch}
+                    filterOption={(input, option) =>
+                      option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                    }
                   >
                     {this.state.companyNameList.map((val) => (
                       <Option

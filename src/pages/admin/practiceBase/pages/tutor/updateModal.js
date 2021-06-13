@@ -17,6 +17,7 @@ import styles from "./index.module.less";
 import { getUser } from "@/api/userApi";
 
 import { queryCompanyName } from "@/api/adminApi/company";
+import { JobQuery } from "@/api/adminApi/companyTutor";
 
 class UpdateModal extends React.Component {
   static propTypes = {
@@ -26,9 +27,14 @@ class UpdateModal extends React.Component {
 
   state = {
     companyNameList: [],
+    jobNameList: [],
   };
   componentDidMount() {
     this.queryCompanyName();
+    const { form,record } = this.props;
+    form.setFieldsValue({
+      sxgl_company_tutor_job:  record.sxgl_company_tutor_job,
+    });
   }
 
   queryCompanyName = (params) => {
@@ -55,6 +61,25 @@ class UpdateModal extends React.Component {
 
   handleCancel = (e) => {
     this.props.hideFunc();
+  };
+
+  onChange = (value) => {
+    const { form } = this.props;
+    form.setFieldsValue({
+      sxgl_company_tutor_job: "",
+    });
+    JobQuery({ sxgl_company_id: value })
+      .then((result) => {
+        if (result && result.status === 1) {
+          this.setState({
+            jobNameList: result.data,
+          });
+        }
+      })
+      .catch(() => {
+        message.error("查询失败!");
+      });
+    // this.queryCompanyTutor(value);
   };
 
   render() {
@@ -117,6 +142,8 @@ class UpdateModal extends React.Component {
                   <Select
                     placeholder="请选择所属单位"
                     onFocus={this.queryCompanyName}
+                    onChange={this.onChange}
+                    allowClear
                   >
                     {this.state.companyNameList.map((val) => (
                       <Option
@@ -141,6 +168,7 @@ class UpdateModal extends React.Component {
                     <Option value="本科">本科</Option>
                     <Option value="硕士">硕士</Option>
                     <Option value="博士">博士</Option>
+                    <Option value="其他">其他</Option>
                   </Select>
                 )}
               </FormItem>
@@ -157,8 +185,20 @@ class UpdateModal extends React.Component {
             <Col span={12}>
               <FormItem {...formItemLayout} label="职务">
                 {getFieldDecorator("sxgl_company_tutor_job", {
-                  initialValue: record.sxgl_company_tutor_job,
-                })(<Input />)}
+                  // initialValue:,
+                })(
+                  <Select
+                    placeholder="请选择"
+                    // onFocus={this.queryCompanyTutor}
+                    allowClear
+                  >
+                    {this.state.jobNameList.map((val) => (
+                      <Option key={val.sxgl_job_id} value={val.sxgl_job_id}>
+                        {val.sxgl_job_name}
+                      </Option>
+                    ))}
+                  </Select>
+                )}
               </FormItem>
             </Col>
           </Row>

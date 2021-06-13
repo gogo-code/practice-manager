@@ -59,7 +59,7 @@
     margin: 0px !important;
   }
   .ant-modal-header {
-    background: #1890ff;
+    background: #1890ff !important;
     .ant-modal-title {
       color: #fff;
     }
@@ -72,7 +72,18 @@
   .ant-modal-close-x {
     color: #fff;
     .anticon:hover {
-      transform:rotate(180deg);
+      transform: rotate(180deg);
     }
+  }
+
+  .ant-modal-close {
+    transition: all 0.3s;
+    &:hover {
+      transform: rotateZ(180deg);
+    }
+  }
+  .ant-card-head-title {
+    color: #333;
+    font-weight: bold;
   }
 }

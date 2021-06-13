@@ -12,10 +12,20 @@ import Home from "./../home";
 import PersonSetting from "./../personSetting";
 import PracticeBase from "./../admin/practiceBase";
 import UserSetting from "./../admin/userSetting";
-import Plan from './../admin/plan';
-
+import Plan from "./../admin/plan";
+import Check from "./../admin/check";
+import Intention from "./../student/intention";
+import QueryPlan from "./../student/plan";
+import Process from "./../student/process";
+import Quest from "./../student/quest";
+import Result from "./../student/result";
+import QuestMana from "./../teacher/questMana";
+import ScoreSet from "./../teacher/scoreSet";
+import StudentInfo from "./../teacher/studentInfo";
+import Count from "./../admin/count";
 // 引入路由动画组件
 import { TransitionGroup, CSSTransition } from "react-transition-group";
+import QueueAnim from "rc-queue-anim";
 
 // 引入是否登录的判断
 import { isLogin } from "./../../api/userApi";
@@ -64,7 +74,9 @@ export default class Layouts extends Component {
   _renderMenu = (menuList, path) => {
     let _path = path.split("/").splice(0, 2).join("/");
     let arr = [];
+    console.log(menuList)
     let data = menuList.find((val) => val.key.indexOf(_path) !== -1);
+    console.log(data)
     if (data) {
       arr.push(
         <Breadcrumb.Item key={data.key}>
@@ -113,7 +125,6 @@ export default class Layouts extends Component {
             您的位置&nbsp;:&nbsp;&nbsp;&nbsp;
             <Breadcrumb>{this._renderMenu(_menuList, path)}</Breadcrumb>
           </div>
-
           <Content className="content">
             {/* <TransitionGroup>
               <CSSTransition
@@ -125,16 +136,28 @@ export default class Layouts extends Component {
                 // 动画时间设置为800ms，和css中的需要一致。
                 timeout={300}
               > */}
-                <Switch>
-                  <Redirect from={"/"} exact to={"/home"} />
-                  <Route path={"/home"} component={Home} />
-                  <Route path={"/practiceBase"} component={PracticeBase} />
-                  <Route path={"/personSetting"} component={PersonSetting} />
-                  <Route path={"/userSetting"} component={UserSetting} />
-                  <Route path={"/plan"} component={Plan} />
+              <Switch>
+                <Redirect from={"/"} exact to={"/home"} key="redirect"/>
+                <Route path={"/home"} component={Home} key='home'/>
+                <Route path={"/practiceBase"} component={PracticeBase} key='practiceBase'/>
+                <Route path={"/personSetting"} component={PersonSetting} />
+                <Route path={"/userSetting"} component={UserSetting} />
+                <Route path={"/plan"} component={Plan} />
+                <Route path={"/check"} component={Check} />
+                <Route path={"/count"} component={Count} />
 
-                  <Route component={NotFound} />
-                </Switch>
+                <Route path={"/student/intention"} component={Intention} />
+                <Route path={"/student/plan"} component={QueryPlan} />
+                <Route path={"/student/process"} component={Process} />
+                <Route path={"/student/quest"} component={Quest} />
+                <Route path={"/student/result"} component={Result} />
+
+                <Route path={"/releaseQuest"} component={QuestMana} />
+                <Route path={"/studentInformation"} component={StudentInfo} />
+                <Route path={"/practiceScore"} component={ScoreSet} />
+
+                <Route component={NotFound} />
+              </Switch>
               {/* </CSSTransition>
             </TransitionGroup> */}
           </Content>

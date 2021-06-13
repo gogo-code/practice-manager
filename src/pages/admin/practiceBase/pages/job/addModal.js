@@ -9,8 +9,8 @@ import {
   Col,
   Row,
   Select,
-} from "antd";
-import PropTypes from "prop-types";
+} from "antd";                              
+import PropTypes from "prop-types";                                                  
 import { withRouter } from "react-router-dom";
 import styles from "./index.module.less";
 

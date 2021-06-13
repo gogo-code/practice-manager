@@ -58,32 +58,11 @@ class Search extends Component {
         <Form>
           <Row>
             <Col {...colSpan}>
-              <FormItem {...formItemLayout} label="岗位名称:">
-                {getFieldDecorator("sxgl_job_name")(<Input />)}
+              <FormItem {...formItemLayout} label="计划名称:">
+                {getFieldDecorator("sxgl_plan_name")(<Input />)}
               </FormItem>
             </Col>
             <Col {...colSpan}>
-              <FormItem {...formItemLayout} label="所属单位">
-                {getFieldDecorator("sxgl_company_id", {
-                  rules: [],
-                })(
-                  <Select
-                    style={{ width: "174px" }}
-                    placeholder="请选择所属单位"
-                    onFocus={this.queryCompanyName}
-                    allowClear
-                  >
-                    {this.state.companyNameList.map((val) => (
-                      <Option
-                        key={val.sxgl_company_id}
-                        value={val.sxgl_company_id}
-                      >
-                        {val.sxgl_company_name}
-                      </Option>
-                    ))}
-                  </Select>
-                )}
-              </FormItem>
             </Col>
 
             <Col {...colSpan} offset={4}>

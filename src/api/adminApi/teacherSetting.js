@@ -4,6 +4,10 @@ import ajax from "../index";
 export const teacherQuery = (params) =>
   ajax("api/auth/admin/teacher/query", params);
 
+// 查询教师名字
+export const teacherNameQuery = (params) =>
+  ajax("api/auth/admin/teacher/queryName", params);
+
 // 导入教师信息
 export const teacherAdd = (token, data) =>
   ajax("api/auth/admin/teacher/add", { token, data }, "post");

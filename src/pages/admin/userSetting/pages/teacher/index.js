@@ -87,7 +87,7 @@ export default class index extends Component {
           return {
             sxgl_teacher_id: item["教师工号"],
             sxgl_name: item["教师姓名"],
-            sxgl_department: item["所属学院"],
+            sxgl_department: item["所在学院"],
             sxgl_phone: item["联系电话"],
           };
         });
@@ -193,7 +193,7 @@ export default class index extends Component {
         width: 50,
         align: "center",
         render: (text, record, index) => {
-          return (this.state.currentIndex - 1) * 8 + index + 1;
+          return (this.state.currentIndex - 1) * 10 + index + 1;
         },
       },
       {
@@ -272,7 +272,7 @@ export default class index extends Component {
     return (
       <div>
         <Search openChange={() => this.openChange()} onSearch={this.onSearch} />
-
+        <div style={{marginBottom:8}}>温馨提示：请按照模板进行数据准备，文件格式:支持Excel文件大小不超过<span style={{color:'red'}}>5M</span>。上传文件需要按照模板上传，如果还没有模板，可以先  <a style={{color:"#1890ff"}} href="/api/auth/upload/download?data=/public/uploads/documents/template/教师表.xlsx" download="教师表.xlsx">下载模板</a></div>
         <div style={{ marginBottom: 8 }}>
           <Upload
             showUploadList={false}
@@ -306,7 +306,7 @@ export default class index extends Component {
           rowKey={(record) => record.sxgl_teacher_id}
           size="small"
           pagination={{
-            pageSize: 8,
+            pageSize: 10,
             onChange: (page, pageSize) => {
               this.setState({
                 currentIndex: page,

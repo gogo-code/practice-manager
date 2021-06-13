@@ -8,6 +8,10 @@ export const companyQuery = (params) =>
 export const queryCompanyName = (params) =>
   ajax("api/auth/admin/company/queryCompanyName", params);
 
+// 查询公司的指导教师
+export const queryCompanyTeacherName = (params) =>
+  ajax("api/auth/admin/company/queryCompanyTeacherName", params);
+
 // 添加公司信息
 export const companyAdd = (token, data) =>
   ajax("api/auth/admin/company/add", { token, data }, "post");
@@ -26,3 +30,6 @@ export const companyUpdate = (token, data) =>
     },
     "post"
   );
+
+
+  
